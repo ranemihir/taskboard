@@ -7,6 +7,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { StoreModule } from '@ngrx/store';
 import { userReducer } from './state/user/user.reducer';
+import { EffectsModule } from '@ngrx/effects';
+import { UserEffects } from './state/user/user.effects';
 
 @NgModule({
   declarations: [
@@ -18,7 +20,8 @@ import { userReducer } from './state/user/user.reducer';
     ReactiveFormsModule,
     AuthRoutingModule,
     HttpClientModule,
-    StoreModule.forFeature('user', userReducer)
+    StoreModule.forFeature('currentUser', userReducer),
+    EffectsModule.forFeature([UserEffects])
   ]
 })
 export class AuthModule { }

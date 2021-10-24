@@ -1,24 +1,40 @@
 import { createReducer, on } from "@ngrx/store";
+import AppState from "src/app/shared/types/app.state";
 import * as UserActions from './user.actions';
 
-export interface UserState {
-    id: string | null;
-    firstName: string | null;
-    lastName: string | null;
-    email: string | null;
-    accessToken: string | null;
-}
-
-const initialState: UserState = {
-    id: null,
-    firstName: null,
-    lastName: null,
-    email: null,
-    accessToken: null
+const initialState: AppState = {
+    currentUser: null,
+    error: null
 };
 
-export const userReducer = createReducer<UserState>(
-    initialState as UserState,
-    on(UserActions.loginUser, (state, action): UserState => action.user),
-    on(UserActions.signUpUser, (state, action): UserState => action.user)
+export const userReducer = createReducer<AppState>(
+    initialState as AppState,
+    on(UserActions.loginUserSuccess, (state, action): AppState => {
+        return {
+            ...state,
+            currentUser: action.currentUser,
+            error: null
+        };
+    }),
+    on(UserActions.loginUserFailure, (state, action): AppState => {
+        return {
+            ...state,
+            currentUser: null,
+            error: action.error
+        };
+    }),
+    on(UserActions.signUpUserSuccess, (state, action): AppState => {
+        return {
+            ...state,
+            currentUser: action.currentUser,
+            error: null
+        };
+    }),
+    on(UserActions.signUpUserFailure, (state, action): AppState => {
+        return {
+            ...state,
+            currentUser: null,
+            error: action.error
+        };
+    }),
 );

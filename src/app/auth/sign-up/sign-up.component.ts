@@ -1,5 +1,25 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Store } from '@ngrx/store';
+import AppState from 'src/app/shared/types/app.state';
+import { AuthService } from '../auth.service';
+import * as UserActions from './../state/user/user.actions';
+
+
+function passwordMatcher(c: AbstractControl): { [key: string]: boolean; } | null {
+  const passwordControl = c.get('password');
+  const confirmPasswordControl = c.get('confirmPassword');
+
+  if (passwordControl?.pristine || confirmPasswordControl?.pristine) {
+    return null;
+  }
+
+  if (passwordControl?.value === confirmPasswordControl?.value) {
+    return null;
+  }
+
+  return { 'match': true };
+}
 
 @Component({
   selector: 'app-sign-up',
@@ -7,16 +27,34 @@ import { FormBuilder, FormGroup } from '@angular/forms';
   styleUrls: ['./sign-up.component.scss']
 })
 export class SignUpComponent implements OnInit {
-  signupForm: FormGroup = this.fb.group({
-    firstName: this.fb.control(''),
-    lastName: this.fb.control(''),
-    email: this.fb.control(''),
-    password: this.fb.control(''),
-    confirmPassword: this.fb.control('')
-  });
+  signupForm: FormGroup;
 
-  constructor(private fb: FormBuilder) { }
+  constructor(
+    private fb: FormBuilder,
+    private store: Store<AppState>
+  ) {
+    this.signupForm = this.fb.group({
+      firstName: ['', [Validators.required, Validators.minLength(3)]],
+      lastName: ['', [Validators.required, Validators.minLength(3)]],
+      email: ['', [Validators.required, Validators.email]],
+      passwordGroup: this.fb.group({
+        password: ['', [Validators.required, Validators.minLength(3)]],
+        confirmPassword: ['', [Validators.required, Validators.minLength(3)]],
+      }, {
+        validator: passwordMatcher
+      })
+    });
+  }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+
+  }
+
+  signUp() {
+    const { firstName, lastName, email, passwordGroup } = this.signupForm.value;
+    const { password } = passwordGroup;
+
+    this.store.dispatch(UserActions.signUpUser({ firstName, lastName, email, password }));
+  }
 
 }

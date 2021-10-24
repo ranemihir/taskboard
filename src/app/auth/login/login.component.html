@@ -12,15 +12,20 @@
                         <a routerLink="/signup">Sign up</a>
                     </small>
                 </p>
-                <div class="mb-3">
-                    <label for="email-input" class="form-label">Email</label>
-                    <input type="email" class="form-control" id="email-input" placeholder="name@example.com">
-                </div>
-                <div class="mb-3">
-                    <label for="password-input" class="form-label">Password</label>
-                    <input type="password" class="form-control" id="password-input" placeholder="something secured">
-                </div>
-                <button class="btn btn-primary">Sign In</button>
+                <form [formGroup]="loginForm">
+                    <div class="mb-3">
+                        <label for="email-input" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="email-input" placeholder="name@example.com"
+                            formControlName="email">
+                    </div>
+                    <div class="mb-3">
+                        <label for="password-input" class="form-label">Password</label>
+                        <input type="password" class="form-control" id="password-input" placeholder="something secured"
+                            formControlName="password">
+                    </div>
+                    <button class="btn btn-primary" type="submit" [disabled]="!loginForm.valid" (click)="login()">Sign
+                        In</button>
+                </form>
             </div>
         </div>
     </div>
