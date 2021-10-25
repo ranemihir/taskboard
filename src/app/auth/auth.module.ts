@@ -20,7 +20,7 @@ import { UserEffects } from './state/user/user.effects';
     ReactiveFormsModule,
     AuthRoutingModule,
     HttpClientModule,
-    StoreModule.forFeature('currentUser', userReducer),
+    StoreModule.forFeature('auth', userReducer),
     EffectsModule.forFeature([UserEffects])
   ]
 })

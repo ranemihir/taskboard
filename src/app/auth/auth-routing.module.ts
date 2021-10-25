@@ -1,17 +1,21 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AnonymousGuard } from './anonymous.guard';
+import { AuthGuard } from './auth.guard';
 import { LoginComponent } from './login/login.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 
 const routes: Routes = [
     {
         path: 'login',
-        component: LoginComponent
+        component: LoginComponent,
+        canActivate: [AnonymousGuard]
     },
     {
         path: 'signup',
-        component: SignUpComponent
-    }
+        component: SignUpComponent,
+        canActivate: [AnonymousGuard]
+    },
 ];
 
 @NgModule({

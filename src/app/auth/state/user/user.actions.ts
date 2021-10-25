@@ -22,11 +22,15 @@ export const signUpUser = createAction(
 );
 
 export const signUpUserSuccess = createAction(
-    '[User] Set User Data on Sign Up',
+    '[User] Sign Up Successful',
     props<{ currentUser: CurrentUser; }>()
 );
 
 export const signUpUserFailure = createAction(
-    '[User] Set User Data on Sign Up',
+    '[User] Sign Up Failure',
     props<{ error: string; }>()
+);
+
+export const getCurrentUserIfExists = createAction(
+    '[User] Get Current User If Exists'
 );

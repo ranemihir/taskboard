@@ -1,3 +1,4 @@
+import { state } from "@angular/animations";
 import { createReducer, on } from "@ngrx/store";
 import AppState from "src/app/shared/types/app.state";
 import * as UserActions from './user.actions';
@@ -36,5 +37,5 @@ export const userReducer = createReducer<AppState>(
             currentUser: null,
             error: action.error
         };
-    }),
+    })
 );

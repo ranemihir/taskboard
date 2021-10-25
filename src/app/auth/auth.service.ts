@@ -2,8 +2,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { CurrentUser } from '../shared/types/user';
 import { environment } from 'src/environments/environment';
-import { catchError, tap } from 'rxjs/operators';
-import { of } from 'rxjs';
+
+
 @Injectable({
   providedIn: 'root'
 })
@@ -20,6 +20,8 @@ export class AuthService {
       lastName,
       email,
       password
+    }, {
+      headers: this.headers
     });
   }
 
