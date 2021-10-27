@@ -10,6 +10,8 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { LandingPageComponent } from './landing-page/landing-page.component';
+import { StoreRouterConnectingModule } from '@ngrx/router-store';
+import { TaskboardModule } from './taskboard/taskboard.module';
 
 @NgModule({
   declarations: [
@@ -21,9 +23,11 @@ import { LandingPageComponent } from './landing-page/landing-page.component';
     AppRoutingModule,
     NgbModule,
     AuthModule,
+    TaskboardModule,
     StoreModule.forRoot({}, {}),
     EffectsModule.forRoot([]),
-    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production })
+    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
+    StoreRouterConnectingModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]
