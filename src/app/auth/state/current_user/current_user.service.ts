@@ -1,13 +1,13 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { CurrentUser } from '../shared/types';
+import { CurrentUser } from '../../../shared/types';
 import { environment } from 'src/environments/environment';
 
 
 @Injectable({
   providedIn: 'root'
 })
-export class AuthService {
+export class CurrentUserService {
   headers: HttpHeaders;
 
   constructor(private http: HttpClient) {

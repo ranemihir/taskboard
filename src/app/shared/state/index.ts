@@ -23,7 +23,7 @@ export interface ProjectRoleState {
 
 export interface TaskState {
     data: Task[] | null;
-    error: string;
+    error: string | null;
 }
 
 export interface AppState {

@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import * as CurrentUserActions from './current_user.actions';
 import { map, catchError, exhaustMap } from 'rxjs/operators';
-import { AuthService } from "../../auth.service";
+import { CurrentUserService } from "./current_user.service";
 import { of } from "rxjs";
 import { Router } from "@angular/router";
 import { CurrentUser } from "src/app/shared/types";
@@ -14,14 +14,14 @@ import { CurrentUser } from "src/app/shared/types";
 export class CurrentUserEffects {
     constructor(
         private $actions: Actions,
-        private authService: AuthService,
+        private currentUserService: CurrentUserService,
         private router: Router
     ) { }
 
     loginUser$ = createEffect(() => {
         return this.$actions.pipe(
             ofType(CurrentUserActions.loginUser),
-            exhaustMap(action => this.authService.login(action.email, action.password).pipe(
+            exhaustMap(action => this.currentUserService.login(action.email, action.password).pipe(
                 map((data: CurrentUser) => {
                     this.router.navigate(['/']);
                     return CurrentUserActions.loginUserSuccess({ data });
@@ -37,7 +37,7 @@ export class CurrentUserEffects {
     signUpUser$ = createEffect(() => {
         return this.$actions.pipe(
             ofType(CurrentUserActions.signUpUser),
-            exhaustMap(action => this.authService.signUp(action.firstName, action.lastName, action.email, action.password).pipe(
+            exhaustMap(action => this.currentUserService.signUp(action.firstName, action.lastName, action.email, action.password).pipe(
                 map((data: CurrentUser) => {
                     this.router.navigate(['/']);
                     return CurrentUserActions.signUpUserSuccess({ data });
