@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { TaskboardComponent } from './taskboard.component';
 import { TaskboardRoutingModule } from './taskboard-routing.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { StoreModule } from '@ngrx/store';
 
 
 @NgModule({
@@ -12,7 +13,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
   imports: [
     CommonModule,
     TaskboardRoutingModule,
-    NgbModule
+    NgbModule,
   ]
 })
 export class TaskboardModule { }
