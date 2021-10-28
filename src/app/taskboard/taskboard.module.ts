@@ -12,7 +12,9 @@ import { SharedModule } from '../shared/shared.module';
   imports: [
     SharedModule,
     TaskboardRoutingModule,
-    // StoreModule.forFeature()
+    StoreModule.forFeature('projects', projectsReducer),
+    StoreModule.forFeature('projectRoles', projectRolesReducer),
+    StoreModule.forFeature('tasks', tasksReducer)
   ]
 })
 export class TaskboardModule { }
