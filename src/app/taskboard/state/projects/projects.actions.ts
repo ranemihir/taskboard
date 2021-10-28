@@ -2,17 +2,17 @@ import { createAction, props } from "@ngrx/store";
 import { Project } from "src/app/shared/types";
 
 // retrieve
-export const fetchProjects = createAction(
-    '[Projects] Fetch Projects'
+export const fetchAllProjectsOfCurrentUser = createAction(
+    '[Projects] Fetch All Projects of Current User'
 );
 
-export const fetchProjectsSuccess = createAction(
-    '[Projects] Fetch Projects Success',
+export const fetchAllProjectsOfCurrentUser_Success = createAction(
+    '[Projects] Fetch All Projects of Current User (Success)',
     props<{ projects: Project[]; }>()
 );
 
-export const fetchProjectsFailure = createAction(
-    '[Projects] Fetch Projects Success',
+export const fetchAllProjectsOfCurrentUser_Failure = createAction(
+    '[Projects] Fetch All Projects of Current User (Failure)',
     props<{ error: string; }>()
 );
 
@@ -22,13 +22,13 @@ export const createProject = createAction(
     props<{ name: string, description?: string, adminUserId: string; }>()
 );
 
-export const createProjectSuccess = createAction(
-    '[Projects] Create Project Success',
+export const createProject_Success = createAction(
+    '[Projects] Create Project (Success)',
     props<{ project: Project; }>()
 );
 
-export const createProjectFailure = createAction(
-    '[Projects] Create Project Failure',
+export const createProject_Failure = createAction(
+    '[Projects] Create Project (Failure)',
     props<{ error: string; }>()
 );
 
@@ -38,13 +38,13 @@ export const updateProject = createAction(
     props<{ _id: string; name?: string; description?: string; adminUserIds: string[]; }>()
 );
 
-export const updateProjectSuccess = createAction(
-    '[Projects] Update Project Success',
+export const updateProject_Success = createAction(
+    '[Projects] Update Project (Success)',
     props<{ project: Project; }>()
 );
 
-export const updateProjectFailure = createAction(
-    '[Projects] Update Project Failure',
+export const updateProject_Failure = createAction(
+    '[Projects] Update Project (Failure)',
     props<{ error: string; }>()
 );
 
@@ -54,12 +54,12 @@ export const deleteProject = createAction(
     props<{ _id: string; }>()
 );
 
-export const deleteProjectSuccess = createAction(
-    '[Projects] Delete Project Success',
+export const deleteProject_Success = createAction(
+    '[Projects] Delete Project (Success)',
     props<{ _id: string; }>()
 );
 
-export const deleteProjectFailure = createAction(
-    '[Projects] Delete Project Failure',
+export const deleteProject_Failure = createAction(
+    '[Projects] Delete Project (Failure)',
     props<{ error: string; }>()
 );

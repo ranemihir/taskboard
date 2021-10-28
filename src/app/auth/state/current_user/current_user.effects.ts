@@ -16,7 +16,9 @@ export class CurrentUserEffects {
         private $actions: Actions,
         private currentUserService: CurrentUserService,
         private router: Router
-    ) { }
+    ) {
+        
+     }
 
     loginUser$ = createEffect(() => {
         return this.$actions.pipe(

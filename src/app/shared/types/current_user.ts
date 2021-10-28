@@ -1,5 +1,5 @@
 export default interface CurrentUser {
-    id: string | null;
+    _id: string | null;
     firstName: string | null;
     lastName: string | null;
     email: string | null;

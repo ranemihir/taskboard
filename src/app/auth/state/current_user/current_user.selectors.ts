@@ -8,6 +8,11 @@ export const getCurrentUser = createSelector(
     state => state.data
 );
 
+export const getCurrentUserId = createSelector(
+    getAuthFeatureSelector,
+    state => state.data?._id
+);
+
 export const getError = createSelector(
     getAuthFeatureSelector,
     state => state.error
