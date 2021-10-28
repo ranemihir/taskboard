@@ -1,10 +1,8 @@
-import { User } from "./user";
-
 export default interface Task {
-    id: string;
+    _id: string;
     title: string;
-    description: string;
-    assignedTo: User;
+    description?: string;
+    assignedTo?: string;
     statusId: string;
     priority?: number;
     dueDate?: Date;

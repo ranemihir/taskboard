@@ -1,17 +1,17 @@
 import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import * as UserActions from './user.actions';
+import * as CurrentUserActions from './current_user.actions';
 import { map, catchError, exhaustMap } from 'rxjs/operators';
 import { AuthService } from "../../auth.service";
 import { of } from "rxjs";
-import { CurrentUser } from "src/app/shared/types/user";
 import { Router } from "@angular/router";
+import { CurrentUser } from "src/app/shared/types";
 
 
 @Injectable({
     providedIn: 'root'
 })
-export class UserEffects {
+export class CurrentUserEffects {
     constructor(
         private $actions: Actions,
         private authService: AuthService,
@@ -20,15 +20,15 @@ export class UserEffects {
 
     loginUser$ = createEffect(() => {
         return this.$actions.pipe(
-            ofType(UserActions.loginUser),
+            ofType(CurrentUserActions.loginUser),
             exhaustMap(action => this.authService.login(action.email, action.password).pipe(
-                map((currentUser: CurrentUser) => {
+                map((data: CurrentUser) => {
                     this.router.navigate(['/']);
-                    return UserActions.loginUserSuccess({ currentUser });
+                    return CurrentUserActions.loginUserSuccess({ data });
                 }),
                 catchError(error => {
                     console.error(error);
-                    return of(UserActions.loginUserFailure({ error }));
+                    return of(CurrentUserActions.loginUserFailure({ error }));
                 })
             ))
         );
@@ -36,13 +36,13 @@ export class UserEffects {
 
     signUpUser$ = createEffect(() => {
         return this.$actions.pipe(
-            ofType(UserActions.signUpUser),
+            ofType(CurrentUserActions.signUpUser),
             exhaustMap(action => this.authService.signUp(action.firstName, action.lastName, action.email, action.password).pipe(
-                map((currentUser: CurrentUser) => {
+                map((data: CurrentUser) => {
                     this.router.navigate(['/']);
-                    return UserActions.signUpUserSuccess({ currentUser });
+                    return CurrentUserActions.signUpUserSuccess({ data });
                 }),
-                catchError(error => of(UserActions.signUpUserFailure({ error })))
+                catchError(error => of(CurrentUserActions.signUpUserFailure({ error })))
             ))
         );
     });

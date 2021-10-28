@@ -3,8 +3,8 @@ import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTr
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import AppState from '../shared/types/app.state';
-import { CurrentUser } from '../shared/types/user';
+import AppState from '../shared/state';
+import { CurrentUser } from '../shared/state/user';
 import * as UserSelectors from './state/user/user.selectors';
 
 @Injectable({

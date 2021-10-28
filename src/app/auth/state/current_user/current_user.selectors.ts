@@ -1,11 +1,11 @@
 import { createFeatureSelector, createSelector } from "@ngrx/store";
-import AppState from "src/app/shared/types/app.state";
+import { CurrentUserState } from "src/app/shared/state";
 
-export const getAuthFeatureSelector = createFeatureSelector<AppState>('auth');
+export const getAuthFeatureSelector = createFeatureSelector<CurrentUserState>('currentUser');
 
 export const getCurrentUser = createSelector(
     getAuthFeatureSelector,
-    state => state.currentUser
+    state => state.data
 );
 
 export const getError = createSelector(

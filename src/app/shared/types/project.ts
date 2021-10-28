@@ -1,11 +1,6 @@
-import Status from "./status";
-import { User } from "./user";
-
 export default interface Project {
-    id: string;
+    _id: string;
     name: string;
-    description: string;
-    tasks: Task[];
-    statuses: Status[];
-    people: User[]
-}
+    description?: string;
+    adminUserId: string;
+};

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import AppState from 'src/app/shared/types/app.state';
+import AppState from 'src/app/shared/state';
 import { AuthService } from '../auth.service';
 import * as UserActions from './../state/user/user.actions';
 

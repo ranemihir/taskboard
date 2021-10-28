@@ -1,5 +1,5 @@
 export default interface Status {
-    id: string;
+    _id: string;
     name: string;
     order: number;
-}
+};

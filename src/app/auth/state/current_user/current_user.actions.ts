@@ -1,5 +1,5 @@
 import { createAction, props } from "@ngrx/store";
-import { CurrentUser } from "src/app/shared/types/user";
+import { CurrentUser } from "src/app/shared/types";
 
 export const loginUser = createAction(
     '[User] Set User Data on Login',
@@ -8,7 +8,7 @@ export const loginUser = createAction(
 
 export const loginUserSuccess = createAction(
     '[User] Login Successful',
-    props<{ currentUser: CurrentUser; }>()
+    props<{ data: CurrentUser; }>()
 );
 
 export const loginUserFailure = createAction(
@@ -23,7 +23,7 @@ export const signUpUser = createAction(
 
 export const signUpUserSuccess = createAction(
     '[User] Sign Up Successful',
-    props<{ currentUser: CurrentUser; }>()
+    props<{ data: CurrentUser; }>()
 );
 
 export const signUpUserFailure = createAction(

@@ -1,7 +1,5 @@
-import { state } from "@angular/animations";
 import { createReducer, on } from "@ngrx/store";
-import AppState from "src/app/shared/types/app.state";
-import * as UserActions from './user.actions';
+import AppState from "src/app/shared/state";
 
 const initialState: AppState = {
     currentUser: null,

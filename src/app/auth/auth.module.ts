@@ -1,14 +1,12 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { LoginComponent } from './login/login.component';
 import { AuthRoutingModule } from './auth-routing.module';
 import { SignUpComponent } from './sign-up/sign-up.component';
-import { ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
 import { StoreModule } from '@ngrx/store';
-import { userReducer } from './state/user/user.reducer';
+import { currentUserReducer } from './state/current_user/current_user.reducer';
 import { EffectsModule } from '@ngrx/effects';
-import { UserEffects } from './state/user/user.effects';
+import { CurrentUserEffects } from './state/current_user/current_user.effects';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -16,12 +14,10 @@ import { UserEffects } from './state/user/user.effects';
     SignUpComponent
   ],
   imports: [
-    CommonModule,
-    ReactiveFormsModule,
+    SharedModule,
     AuthRoutingModule,
-    HttpClientModule,
-    StoreModule.forFeature('auth', userReducer),
-    EffectsModule.forFeature([UserEffects])
+    StoreModule.forFeature('currentUser', currentUserReducer),
+    EffectsModule.forFeature([CurrentUserEffects])
   ]
 })
 export class AuthModule { }

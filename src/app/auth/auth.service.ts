@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { CurrentUser } from '../shared/types/user';
+import { CurrentUser } from '../shared/types';
 import { environment } from 'src/environments/environment';
 
 
