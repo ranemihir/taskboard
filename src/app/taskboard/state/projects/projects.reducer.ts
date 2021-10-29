@@ -9,7 +9,7 @@ const initialState: ProjectState = {
 
 export const projectsReducer = createReducer<ProjectState>(
     initialState as ProjectState,
-    on(ProjectActions.createProjectSuccess, (state, action) => {
+    on(ProjectActions.createProject_Success, (state, action) => {
         if (state.data != null) {
             state.data.push(action.project);
         } else {
@@ -21,13 +21,13 @@ export const projectsReducer = createReducer<ProjectState>(
             error: null
         };
     }),
-    on(ProjectActions.createProjectFailure, (state, action) => {
+    on(ProjectActions.createProject_Failure, (state, action) => {
         return {
             ...state,
             error: action.error
         };
     }),
-    on(ProjectActions.updateProjectSuccess, (state, action) => {
+    on(ProjectActions.updateProject_Success, (state, action) => {
         if (state.data != null) {
             const index = state.data?.findIndex(project => project._id === action.project._id);
 
@@ -41,15 +41,15 @@ export const projectsReducer = createReducer<ProjectState>(
             error: null
         };
     }),
-    on(ProjectActions.updateProjectFailure, (state, action) => {
+    on(ProjectActions.updateProject_Failure, (state, action) => {
         return {
             ...state,
             error: action.error
         };
     }),
-    on(ProjectActions.deleteProjectSuccess, (state, action) => {
+    on(ProjectActions.deleteProject_Success, (state, action) => {
         if (state.data != null) {
-            const index = state.data?.findIndex(project => project._id === action.project._id);
+            const index = state.data?.findIndex(project => project._id === action._id);
 
             if (index && index > 0) {
                 state.data.splice(index, 1);
@@ -61,7 +61,7 @@ export const projectsReducer = createReducer<ProjectState>(
             error: null
         };
     }),
-    on(ProjectActions.deleteProjectFailure, (state, action) => {
+    on(ProjectActions.deleteProject_Failure, (state, action) => {
         return {
             ...state,
             error: action.error

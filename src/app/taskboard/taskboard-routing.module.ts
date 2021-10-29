@@ -4,7 +4,7 @@ import { TaskboardComponent } from './taskboard.component';
 
 const routes: Routes = [
     {
-        path: 'taskboard',
+        path: 'projects/:projectId',
         component: TaskboardComponent
     }
 ];
