@@ -20,9 +20,9 @@ import { SharedModule } from './shared/shared.module';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
     AuthModule,
     TaskboardModule,
+    AppRoutingModule,
     SharedModule,
     StoreModule.forRoot({}, {}),
     EffectsModule.forRoot([]),

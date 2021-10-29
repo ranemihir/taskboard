@@ -3,7 +3,7 @@ import { HttpClientModule } from "@angular/common/http";
 import { NgModule } from "@angular/core";
 import { ReactiveFormsModule } from "@angular/forms";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
-import { NotFoundComponent } from "./not-found/not-found.component";
+import { NotFoundComponent } from "../not-found/not-found.component";
 
 @NgModule({
     imports: [
