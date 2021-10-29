@@ -4,7 +4,7 @@ import { of } from "rxjs";
 import { catchError, map, mergeMap } from "rxjs/operators";
 import * as TaskActions from "./tasks.actions";
 import { TasksService } from "./tasks.service";
-
+import { Task } from "src/app/shared/types";
 
 @Injectable({
     providedIn: 'root'

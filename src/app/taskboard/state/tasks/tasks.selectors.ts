@@ -1,25 +1,26 @@
 import { createFeatureSelector, createSelector } from "@ngrx/store";
 import { AppState, CurrentUserState, TaskState } from "src/app/shared/state";
 import { Task } from "src/app/shared/types";
+import { selectRouteParams } from "../router.selectors";
 
 
 const tasksFeatureSelector = createFeatureSelector<AppState, TaskState>('tasks');
+
+const getAllTasks = createSelector(
+    tasksFeatureSelector,
+    (taskState: TaskState) => taskState.data || []
+);
 
 const currentUserFeatureSelector = createFeatureSelector<AppState, CurrentUserState>('currentUser');
 
 
 export const getAllTasksAssignedToCurrentUserFromAllProjects = createSelector(
-    tasksFeatureSelector,
+    getAllTasks,
     currentUserFeatureSelector,
-    (tasks: TaskState, currentUser: CurrentUserState) => {
+    (tasks: Task[], currentUser: CurrentUserState) => {
         if (currentUser.data && currentUser.data != null) {
             const userId = currentUser.data._id;
-
-            if (tasks.data && tasks.data != null) {
-                return tasks.data.filter((task: Task) => task.assignedTo === userId);
-            }
-
-            return null;
+            return tasks.filter((task: Task) => task.assignedTo === userId);
         }
 
         return null;
@@ -27,12 +28,14 @@ export const getAllTasksAssignedToCurrentUserFromAllProjects = createSelector(
 );
 
 export const getTasksOfProject = (projectId: string) => createSelector(
-    tasksFeatureSelector,
-    (tasks: TaskState) => {
-        if (tasks.data && tasks.data != null) {
-            return tasks.data.filter((task: Task) => task.projectId === projectId);
-        }
-
-        return null;
+    getAllTasks,
+    (tasks: Task[]) => {
+        return tasks.filter((task: Task) => task.projectId === projectId);
     }
+);
+
+export const getTask = createSelector(
+    getAllTasks,
+    selectRouteParams,
+    (tasks: Task[], { taskId }) => tasks.find((task: Task) => task._id === taskId)
 );

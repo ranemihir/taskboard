@@ -10,7 +10,7 @@ const initialState: ProjectState = {
 export const projectsReducer = createReducer<ProjectState>(
     initialState as ProjectState,
     on(ProjectActions.createProject_Success, (state, action) => {
-        if (state.data != null) {
+        if (state.data && state.data != null) {
             state.data.push(action.project);
         } else {
             state.data = [action.project];
@@ -28,7 +28,7 @@ export const projectsReducer = createReducer<ProjectState>(
         };
     }),
     on(ProjectActions.updateProject_Success, (state, action) => {
-        if (state.data != null) {
+        if (state.data && state.data != null) {
             const index = state.data?.findIndex(project => project._id === action.project._id);
 
             if (index && index > 0) {
@@ -48,7 +48,7 @@ export const projectsReducer = createReducer<ProjectState>(
         };
     }),
     on(ProjectActions.deleteProject_Success, (state, action) => {
-        if (state.data != null) {
+        if (state.data && state.data != null) {
             const index = state.data?.findIndex(project => project._id === action._id);
 
             if (index && index > 0) {

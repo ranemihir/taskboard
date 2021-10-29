@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/shared/state';
 import * as UserSelectors from '../../../auth/state/current_user/current_user.selectors';
+import { Task } from "src/app/shared/types";
 
 
 @Injectable({

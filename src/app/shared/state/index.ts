@@ -1,13 +1,8 @@
-import { CurrentUser, User, Project, ProjectRole, Task } from './../types';
+import { CurrentUser, Project, ProjectRole, Task } from './../types';
 
 
 export interface CurrentUserState {
     data: CurrentUser | null;
-    error: string | null;
-}
-
-export interface UserState {
-    data: User[] | null;
     error: string | null;
 }
 
@@ -31,6 +26,5 @@ export interface AppState {
     projects: ProjectState;
     projectRoles: ProjectRoleState;
     tasks: TaskState;
-    users: UserState;
 }
 

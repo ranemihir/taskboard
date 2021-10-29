@@ -1,4 +1,5 @@
 import { createAction, props } from "@ngrx/store";
+import { Task } from "src/app/shared/types";
 
 
 //retreive
