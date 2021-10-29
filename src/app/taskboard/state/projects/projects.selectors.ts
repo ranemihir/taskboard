@@ -3,15 +3,15 @@ import { AppState, ProjectState } from "src/app/shared/state";
 import { Project } from "src/app/shared/types";
 import { selectRouteParams } from "./../router.selectors";
 
-const getProjectsFeatureSelector = createFeatureSelector<AppState, ProjectState>('projects');
+const projectsFeatureSelector = createFeatureSelector<AppState, ProjectState>('projects');
 
 export const getAllProjectsOfCurrentUser = createSelector(
-    getProjectsFeatureSelector,
+    projectsFeatureSelector,
     (projectsState: ProjectState) => projectsState.data || []
 );
 
 export const getProjectsError = createSelector(
-    getProjectsFeatureSelector,
+    projectsFeatureSelector,
     (projectsState: ProjectState) => projectsState.error
 );
 

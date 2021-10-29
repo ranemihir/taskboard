@@ -9,5 +9,5 @@ const initialState: TaskState = {
 
 export const tasksReducer = createReducer<TaskState>(
     initialState as TaskState,
-
+    
 );

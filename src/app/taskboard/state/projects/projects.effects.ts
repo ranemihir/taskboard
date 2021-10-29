@@ -34,7 +34,7 @@ export class ProjectsEffects {
     create$ = createEffect(() => {
         return this.$actions.pipe(
             ofType(ProjectsActions.createProject),
-            mergeMap(action => this.projectsService.create(action.name, action.description).pipe(
+            mergeMap(action => this.projectsService.createProject(action.name, action.description).pipe(
                 map((project: Project) => {
                     return ProjectsActions.createProject_Success({ project });
                 }),
@@ -49,7 +49,7 @@ export class ProjectsEffects {
     update$ = createEffect(() => {
         return this.$actions.pipe(
             ofType(ProjectsActions.updateProject),
-            mergeMap(action => this.projectsService.update(action._id, action.name, action.description, action.adminUserIds).pipe(
+            mergeMap(action => this.projectsService.updateProject(action._id, action.name, action.description, action.adminUserIds).pipe(
                 map((project: Project) => {
                     return ProjectsActions.updateProject_Success({ project });
                 }),
@@ -64,7 +64,7 @@ export class ProjectsEffects {
     delete$ = createEffect(() => {
         return this.$actions.pipe(
             ofType(ProjectsActions.deleteProject),
-            mergeMap(action => this.projectsService.delete(action._id).pipe(
+            mergeMap(action => this.projectsService.deleteProject(action._id).pipe(
                 map((_id: string) => {
                     return ProjectsActions.deleteProject_Success({ _id });
                 }),

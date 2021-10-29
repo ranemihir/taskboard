@@ -33,7 +33,7 @@ export class ProjectsService {
     });
   }
 
-  create(name: string, description?: string) {
+  createProject(name: string, description?: string) {
     return this.http.post<Project>(environment.apiUrl + '/projects/0/create', {
       name,
       description,
@@ -43,7 +43,7 @@ export class ProjectsService {
     });
   }
 
-  update(_id: string, name?: string, description?: string, adminUserIds?: string[]) {
+  updateProject(_id: string, name?: string, description?: string, adminUserIds?: string[]) {
     return this.http.post<Project>(environment.apiUrl + `/projects/${_id}/update`, {
       name,
       description,
@@ -53,7 +53,7 @@ export class ProjectsService {
     });
   }
 
-  delete(_id: string) {
+  deleteProject(_id: string) {
     return this.http.post<string>(environment.apiUrl + `/projects/${_id}/delete`, {}, {
       headers: this.headers
     });

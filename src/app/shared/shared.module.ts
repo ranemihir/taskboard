@@ -3,6 +3,7 @@ import { HttpClientModule } from "@angular/common/http";
 import { NgModule } from "@angular/core";
 import { ReactiveFormsModule } from "@angular/forms";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
+import { NotFoundComponent } from "./not-found/not-found.component";
 
 @NgModule({
     imports: [
@@ -11,11 +12,15 @@ import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
         HttpClientModule,
         NgbModule
     ],
+    declarations: [
+        NotFoundComponent
+    ],
     exports: [
         CommonModule,
         ReactiveFormsModule,
         HttpClientModule,
-        NgbModule
+        NgbModule,
+        NotFoundComponent
     ]
 })
 export class SharedModule { }

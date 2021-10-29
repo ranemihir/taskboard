@@ -34,7 +34,7 @@ export class ProjectRolesEffects {
     createProjectRole$ = createEffect(() => {
         return this.$actions.pipe(
             ofType(ProjectRolesActions.createProjectRole),
-            mergeMap(action => this.projectRolesService.create(action.userId, action.projectId, action.authorisedStatusIds).pipe(
+            mergeMap(action => this.projectRolesService.createProjectRole(action.userId, action.projectId, action.authorisedStatusIds).pipe(
                 map((projectRole: ProjectRole) => {
                     return ProjectRolesActions.createProjectRole_Success({ projectRole });
                 }),
@@ -49,7 +49,7 @@ export class ProjectRolesEffects {
     updateProjectRole$ = createEffect(() => {
         return this.$actions.pipe(
             ofType(ProjectRolesActions.updateProjectRole),
-            mergeMap(action => this.projectRolesService.update(action._id, action.authorisedStatusIds).pipe(
+            mergeMap(action => this.projectRolesService.updateProjectRole(action._id, action.authorisedStatusIds).pipe(
                 map((projectRole: ProjectRole) => {
                     return ProjectRolesActions.updateProjectRole_Success({ projectRole });
                 }),
@@ -64,7 +64,7 @@ export class ProjectRolesEffects {
     deleteProjectRole$ = createEffect(() => {
         return this.$actions.pipe(
             ofType(ProjectRolesActions.deleteProjectRole),
-            mergeMap(action => this.projectRolesService.delete(action._id).pipe(
+            mergeMap(action => this.projectRolesService.deleteProjectRole(action._id).pipe(
                 map((_id: string) => {
                     return ProjectRolesActions.deleteProjectRole_Success({ _id });
                 }),

@@ -23,7 +23,7 @@ export class ProjectRolesService {
       });
   }
 
-  create(userId: string, projectId: string, authorisedStatusIds: string[]) {
+  createProjectRole(userId: string, projectId: string, authorisedStatusIds: string[]) {
     return this.http.post<ProjectRole>(environment.apiUrl + `/projectRoles/0/create`,
       {
         userId,
@@ -35,7 +35,7 @@ export class ProjectRolesService {
       });
   }
 
-  update(_id: string, authorisedStatusIds: string[]) {
+  updateProjectRole(_id: string, authorisedStatusIds: string[]) {
     return this.http.post<ProjectRole>(environment.apiUrl + `/projectRoles/${_id}/update`, {
       authorisedStatusIds
     }, {
@@ -43,7 +43,7 @@ export class ProjectRolesService {
     });
   }
 
-  delete(_id: string) {
+  deleteProjectRole(_id: string) {
     return this.http.post<string>(environment.apiUrl + `/projectRoles/${_id}/delete`, {}, {
       headers: this.headers
     });

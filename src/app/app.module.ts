@@ -3,7 +3,6 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AuthModule } from './auth/auth.module';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
@@ -12,6 +11,7 @@ import { environment } from '../environments/environment';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { TaskboardModule } from './taskboard/taskboard.module';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -21,9 +21,9 @@ import { TaskboardModule } from './taskboard/taskboard.module';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    NgbModule,
     AuthModule,
     TaskboardModule,
+    SharedModule,
     StoreModule.forRoot({}, {}),
     EffectsModule.forRoot([]),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
