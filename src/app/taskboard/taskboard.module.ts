@@ -8,11 +8,15 @@ import { SharedModule } from '../shared/shared.module';
 import { projectsReducer } from './state/projects/projects.reducer';
 import { projectRolesReducer } from './state/project_roles/project_roles.reducer';
 import { tasksReducer } from './state/tasks/tasks.reducer';
+import { TaskDetailComponent } from './task-detail/task-detail.component';
+import { KanbanBoardComponent } from './kanban-board/kanban-board.component';
 
 
 @NgModule({
   declarations: [
-    TaskboardComponent
+    TaskboardComponent,
+    TaskDetailComponent,
+    KanbanBoardComponent
   ],
   imports: [
     SharedModule,
