@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import AppState from 'src/app/shared/state';
-import { AuthService } from '../state/current_user/current_user.service';
-import * as UserActions from './../state/user/user.actions';
+import { AppState } from 'src/app/shared/state';
+
+import * as CurrentUserActions from '../state/current_user/current_user.actions';
 
 @Component({
   selector: 'app-login',
@@ -20,7 +19,6 @@ export class LoginComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private store: Store<AppState>,
-    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -28,7 +26,7 @@ export class LoginComponent implements OnInit {
 
   login() {
     const { email, password } = this.loginForm.value;
-    this.store.dispatch(UserActions.loginUser({ email, password }));
+    this.store.dispatch(CurrentUserActions.login({ email, password }));
   }
 
 }

@@ -3,9 +3,10 @@ import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTr
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import AppState from '../shared/state';
-import { CurrentUser } from '../shared/state/user';
-import * as UserSelectors from './state/user/user.selectors';
+import { AppState } from '../../state';
+import * as CurrentUserSelectors from 'src/app/auth/state/current_user/current_user.selectors';
+import { CurrentUser } from '../../types';
+
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +20,7 @@ export class AnonymousGuard implements CanActivate {
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    return this.store.select(UserSelectors.getCurrentUser).pipe(map(
+    return this.store.select(CurrentUserSelectors.get).pipe(map(
       (currentUser: CurrentUser | null): boolean => {
         if (currentUser && currentUser != null) {
           return false;

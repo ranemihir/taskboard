@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import AppState from 'src/app/shared/state';
-import { AuthService } from '../state/current_user/current_user.service';
-import * as UserActions from './../state/user/user.actions';
+import { AppState } from 'src/app/shared/state';
+import * as CurrentUserActions from '../state/current_user/current_user.actions';
 
 
 function passwordMatcher(c: AbstractControl): { [key: string]: boolean; } | null {
@@ -54,7 +53,7 @@ export class SignUpComponent implements OnInit {
     const { firstName, lastName, email, passwordGroup } = this.signupForm.value;
     const { password } = passwordGroup;
 
-    this.store.dispatch(UserActions.signUpUser({ firstName, lastName, email, password }));
+    this.store.dispatch(CurrentUserActions.signUp({ firstName, lastName, email, password }));
   }
 
 }
