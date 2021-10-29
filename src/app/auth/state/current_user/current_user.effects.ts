@@ -22,15 +22,15 @@ export class CurrentUserEffects {
 
     loginUser$ = createEffect(() => {
         return this.$actions.pipe(
-            ofType(CurrentUserActions.loginUser),
+            ofType(CurrentUserActions.login),
             exhaustMap(action => this.currentUserService.login(action.email, action.password).pipe(
                 map((data: CurrentUser) => {
                     this.router.navigate(['/']);
-                    return CurrentUserActions.loginUserSuccess({ data });
+                    return CurrentUserActions.login_Success({ data });
                 }),
                 catchError(error => {
                     console.error(error);
-                    return of(CurrentUserActions.loginUserFailure({ error }));
+                    return of(CurrentUserActions.login_Failure({ error }));
                 })
             ))
         );
@@ -38,13 +38,13 @@ export class CurrentUserEffects {
 
     signUpUser$ = createEffect(() => {
         return this.$actions.pipe(
-            ofType(CurrentUserActions.signUpUser),
+            ofType(CurrentUserActions.signUp),
             exhaustMap(action => this.currentUserService.signUp(action.firstName, action.lastName, action.email, action.password).pipe(
                 map((data: CurrentUser) => {
                     this.router.navigate(['/']);
-                    return CurrentUserActions.signUpUserSuccess({ data });
+                    return CurrentUserActions.signUp_Success({ data });
                 }),
-                catchError(error => of(CurrentUserActions.signUpUserFailure({ error })))
+                catchError(error => of(CurrentUserActions.signUp_Failure({ error })))
             ))
         );
     });

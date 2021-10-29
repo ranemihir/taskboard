@@ -9,25 +9,25 @@ const initialState: CurrentUserState = {
 
 export const currentUserReducer = createReducer<CurrentUserState>(
     initialState as CurrentUserState,
-    on(CurrentUserActions.loginUserSuccess, (state, action): CurrentUserState => {
+    on(CurrentUserActions.login_Success, (state, action): CurrentUserState => {
         return {
             data: action.data,
             error: null
         };
     }),
-    on(CurrentUserActions.loginUserFailure, (state, action): CurrentUserState => {
+    on(CurrentUserActions.login_Failure, (state, action): CurrentUserState => {
         return {
             data: null,
             error: action.error
         };
     }),
-    on(CurrentUserActions.signUpUserSuccess, (state, action): CurrentUserState => {
+    on(CurrentUserActions.signUp_Success, (state, action): CurrentUserState => {
         return {
             data: action.data,
             error: null
         };
     }),
-    on(CurrentUserActions.signUpUserFailure, (state, action): CurrentUserState => {
+    on(CurrentUserActions.signUp_Failure, (state, action): CurrentUserState => {
         return {
             data: null,
             error: action.error
