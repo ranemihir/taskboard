@@ -35,7 +35,7 @@ export const createProject_Failure = createAction(
 // update
 export const updateProject = createAction(
     '[Projects] Update Project',
-    props<{ _id: string; name?: string; description?: string; adminUserIds: string[]; }>()
+    props<{ _id: string; name?: string; description?: string; adminUserIds: string[]; invites?: string[]; }>()
 );
 
 export const updateProject_Success = createAction(

@@ -1,13 +1,10 @@
-export interface CurrentUserProjectRole {
-    projectId: string;
-    authorisedStatusIds: string[];
-}
+import { ProjectRole } from ".";
 
-export interface CurrentUser {
+export default interface CurrentUser {
     _id: string | null;
     firstName: string | null;
     lastName: string | null;
     email: string | null;
     token: string | null;
-    projectRoles: CurrentUserProjectRole[];
+    projectRoles: ProjectRole[];
 };

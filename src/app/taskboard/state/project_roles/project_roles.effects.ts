@@ -31,21 +31,6 @@ export class ProjectRolesEffects {
         );
     });
 
-    createProjectRole$ = createEffect(() => {
-        return this.$actions.pipe(
-            ofType(ProjectRolesActions.createProjectRole),
-            mergeMap(action => this.projectRolesService.createProjectRole(action.userId, action.projectId, action.authorisedStatusIds).pipe(
-                map((projectRole: ProjectRole) => {
-                    return ProjectRolesActions.createProjectRole_Success({ projectRole });
-                }),
-                catchError(error => {
-                    console.error(error);
-                    return of(ProjectRolesActions.createProjectRole_Failure({ error }));
-                })
-            ))
-        );
-    });
-
     updateProjectRole$ = createEffect(() => {
         return this.$actions.pipe(
             ofType(ProjectRolesActions.updateProjectRole),

@@ -1,11 +1,11 @@
 import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import * as CurrentUserActions from './current_user.actions';
-import { map, catchError, exhaustMap } from 'rxjs/operators';
+import { map, catchError, exhaustMap, mergeMap } from 'rxjs/operators';
 import { CurrentUserService } from "./current_user.service";
 import { of } from "rxjs";
 import { Router } from "@angular/router";
-import { CurrentUser } from "src/app/shared/types";
+import { CurrentUser, ProjectRole } from "src/app/shared/types";
 
 
 @Injectable({
@@ -17,8 +17,8 @@ export class CurrentUserEffects {
         private currentUserService: CurrentUserService,
         private router: Router
     ) {
-        
-     }
+
+    }
 
     loginUser$ = createEffect(() => {
         return this.$actions.pipe(
@@ -48,4 +48,20 @@ export class CurrentUserEffects {
             ))
         );
     });
+
+    acceptProjectRoleInvitation$ = createEffect(() => {
+        return this.$actions.pipe(
+            ofType(CurrentUserActions.acceptProjectRoleInvitation),
+            mergeMap(action => this.currentUserService.acceptProjectRoleInvitation(action.projectId).pipe(
+                map((projectRole: ProjectRole) => {
+                    return CurrentUserActions.acceptProjectRoleInvitation_Success({ projectRole });
+                }),
+                catchError(error => {
+                    console.error(error);
+                    return of(CurrentUserActions.acceptProjectRoleInvitation_Failure({ error }));
+                })
+            ))
+        );
+    });
+
 }

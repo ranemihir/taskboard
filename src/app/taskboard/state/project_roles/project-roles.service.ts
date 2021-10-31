@@ -23,18 +23,6 @@ export class ProjectRolesService {
       });
   }
 
-  createProjectRole(userId: string, projectId: string, authorisedStatusIds: string[]) {
-    return this.http.post<ProjectRole>(environment.apiUrl + `/projectRoles/0/create`,
-      {
-        userId,
-        projectId,
-        authorisedStatusIds
-      },
-      {
-        headers: this.headers
-      });
-  }
-
   updateProjectRole(_id: string, authorisedStatusIds: string[]) {
     return this.http.post<ProjectRole>(environment.apiUrl + `/projectRoles/${_id}/update`, {
       authorisedStatusIds

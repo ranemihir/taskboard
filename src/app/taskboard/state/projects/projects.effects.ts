@@ -2,6 +2,8 @@ import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { ProjectsService } from "./projects.service";
 import * as ProjectsActions from "./projects.actions";
+import * as TasksActions from "./../tasks/tasks.actions";
+import * as ProjectRolesActions from "./../project_roles/project_roles.actions";
 import { catchError, map, mergeMap } from "rxjs/operators";
 import { Project } from "src/app/shared/types";
 import { of } from "rxjs";
@@ -49,7 +51,7 @@ export class ProjectsEffects {
     update$ = createEffect(() => {
         return this.$actions.pipe(
             ofType(ProjectsActions.updateProject),
-            mergeMap(action => this.projectsService.updateProject(action._id, action.name, action.description, action.adminUserIds).pipe(
+            mergeMap(action => this.projectsService.updateProject(action._id, action.name, action.description, action.adminUserIds, action.invites).pipe(
                 map((project: Project) => {
                     return ProjectsActions.updateProject_Success({ project });
                 }),
@@ -66,6 +68,8 @@ export class ProjectsEffects {
             ofType(ProjectsActions.deleteProject),
             mergeMap(action => this.projectsService.deleteProject(action._id).pipe(
                 map((_id: string) => {
+                    TasksActions.deleteAllTasksOfProject({ projectId: _id });
+                    ProjectRolesActions.deleteAllProjectRolesOfProject({ projectId: _id });
                     return ProjectsActions.deleteProject_Success({ _id });
                 }),
                 catchError(error => {

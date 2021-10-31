@@ -80,3 +80,9 @@ export const deleteTask_Failure = createAction(
     '[Tasks] Delete Task (Failure)',
     props<{ error: string; }>()
 );
+
+
+export const deleteAllTasksOfProject = createAction(
+    '[Tasks] Delete All Tasks of Project',
+    props<{ projectId: string; }>()
+);

@@ -18,22 +18,6 @@ export const fetchAllProjectRolesOfProject_Failure = createAction(
     props<{ error: string; }>()
 );
 
-// create
-export const createProjectRole = createAction(
-    '[Project Roles] Create Project Role',
-    props<{ userId: string, projectId: string, authorisedStatusIds: string[]; }>()
-);
-
-export const createProjectRole_Success = createAction(
-    '[Project Roles] Create Project Role (Success)',
-    props<{ projectRole: ProjectRole; }>()
-);
-
-export const createProjectRole_Failure = createAction(
-    '[Project Roles] Create Project Role (Failure)',
-    props<{ error: string; }>()
-);
-
 // update
 export const updateProjectRole = createAction(
     '[Project Roles] Update Project Role Ids',
@@ -50,6 +34,8 @@ export const updateProjectRole_Failure = createAction(
     props<{ error: string; }>()
 );
 
+
+
 // delete
 export const deleteProjectRole = createAction(
     '[Project Roles] Delete Project Role',
@@ -64,4 +50,10 @@ export const deleteProjectRole_Success = createAction(
 export const deleteProjectRole_Failure = createAction(
     '[Project Roles] Delete Project Role (Failure)',
     props<{ error: string; }>()
+);
+
+
+export const deleteAllProjectRolesOfProject = createAction(
+    '[Project Roles] Delete All Project Roles of Project',
+    props<{ projectId: string; }>()
 );

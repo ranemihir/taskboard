@@ -1,5 +1,5 @@
 import { createAction, props } from "@ngrx/store";
-import { CurrentUser } from "src/app/shared/types";
+import { CurrentUser, ProjectRole } from "src/app/shared/types";
 
 // login
 export const login = createAction(
@@ -31,5 +31,21 @@ export const signUp_Success = createAction(
 
 export const signUp_Failure = createAction(
     '[Current User] Sign Up (Failure)',
+    props<{ error: string; }>()
+);
+
+// accept invitation
+export const acceptProjectRoleInvitation = createAction(
+    '[Current User] Accept Project Role Invitation',
+    props<{ userId: string, projectId: string; }>()
+);
+
+export const acceptProjectRoleInvitation_Success = createAction(
+    '[Current User] Accept Project Role Invitation (Success)',
+    props<{ projectRole: ProjectRole; }>()
+);
+
+export const acceptProjectRoleInvitation_Failure = createAction(
+    '[Current User] Accept Project Role Invitation (Failure)',
     props<{ error: string; }>()
 );

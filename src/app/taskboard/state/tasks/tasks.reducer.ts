@@ -103,4 +103,13 @@ export const tasksReducer = createReducer<TaskState>(
             error: action.error
         };
     }),
+    on(TaskActions.deleteAllTasksOfProject, (state, action) => {
+        if (state.data && state.data != null) {
+            state.data = state.data.filter(task => task.projectId === action.projectId);
+        }
+
+        return {
+            ...state
+        };
+    })
 );

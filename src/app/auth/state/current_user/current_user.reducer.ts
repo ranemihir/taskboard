@@ -1,4 +1,5 @@
 import { createReducer, on } from "@ngrx/store";
+import { stat } from "fs";
 import { CurrentUserState } from "src/app/shared/state";
 import * as CurrentUserActions from './current_user.actions';
 
@@ -32,5 +33,26 @@ export const currentUserReducer = createReducer<CurrentUserState>(
             data: null,
             error: action.error
         };
-    })
+    }),
+    on(CurrentUserActions.acceptProjectRoleInvitation_Success, (state, action) => {
+        if (state.data && state.data != null) {
+            if (!(state.data.projectRoles && state.data.projectRoles != null)) {
+                state.data.projectRoles = [];
+            }
+
+            state.data?.projectRoles.push(action.projectRole);
+
+        }
+
+        return {
+            ...state,
+            error: null
+        };
+    }),
+    on(CurrentUserActions.acceptProjectRoleInvitation_Failure, (state, action) => {
+        return {
+            ...state,
+            error: action.error
+        };
+    }),
 );

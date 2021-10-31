@@ -20,7 +20,7 @@ export class ProjectsService {
   ) {
     this.headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 
-    this.store.select(UserSelectors.getCurrentUserId).subscribe((currentUserId?: string | null) => {
+    this.store.select(UserSelectors.getId).subscribe((currentUserId: string | null) => {
       if (currentUserId && currentUserId != null) {
         this.currentUserId = currentUserId;
       }
@@ -43,11 +43,12 @@ export class ProjectsService {
     });
   }
 
-  updateProject(_id: string, name?: string, description?: string, adminUserIds?: string[]) {
+  updateProject(_id: string, name?: string, description?: string, adminUserIds?: string[], invites?: string[]) {
     return this.http.post<Project>(environment.apiUrl + `/projects/${_id}/update`, {
       name,
       description,
-      adminUserIds
+      adminUserIds,
+      invites
     }, {
       headers: this.headers
     });

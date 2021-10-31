@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { CurrentUser } from "src/app/shared/types";
+import { CurrentUser, ProjectRole } from "src/app/shared/types";
 import { environment } from 'src/environments/environment';
 
 
@@ -32,5 +32,15 @@ export class CurrentUserService {
     }, {
       headers: this.headers
     });
+  }
+
+  acceptProjectRoleInvitation(projectId: string) {
+    return this.http.post<ProjectRole>(environment.apiUrl + `/projects/${projectId}/accept_invitation`,
+      {
+        projectId,
+      },
+      {
+        headers: this.headers
+      });
   }
 };

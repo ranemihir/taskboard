@@ -1,12 +1,17 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { TaskboardComponent } from './taskboard.component';
+import { KanbanBoardComponent } from './kanban-board/kanban-board.component';
+import { TaskDetailComponent } from './task-detail/task-detail.component';
 
 const routes: Routes = [
     {
-        path: 'projects/:projectId',
-        component: TaskboardComponent
-    }
+        path: ':projectId',
+        component: KanbanBoardComponent
+    },
+    {
+        path: ':projectId/:taskId',
+        component: TaskDetailComponent
+    },
 ];
 
 @NgModule({

@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { TaskboardComponent } from './taskboard.component';
 import { TaskboardRoutingModule } from './taskboard-routing.module';
 import { StoreModule } from '@ngrx/store';
 import { SharedModule } from '../shared/shared.module';
@@ -14,7 +13,6 @@ import { KanbanBoardComponent } from './kanban-board/kanban-board.component';
 
 @NgModule({
   declarations: [
-    TaskboardComponent,
     TaskDetailComponent,
     KanbanBoardComponent
   ],

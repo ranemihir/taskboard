@@ -29,24 +29,6 @@ export const projectRolesReducer = createReducer<ProjectRoleState>(
             error: action.error
         };
     }),
-    on(ProjectRolesActions.createProjectRole_Success, (state, action) => {
-        if (!(state.data && state.data != null)) {
-            state.data = [];
-        }
-
-        state.data.push(action.projectRole);
-
-        return {
-            ...state,
-            error: null
-        };
-    }),
-    on(ProjectRolesActions.createProjectRole_Failure, (state, action) => {
-        return {
-            ...state,
-            error: action.error
-        };
-    }),
     on(ProjectRolesActions.updateProjectRole_Success, (state, action) => {
         if (state.data && state.data != null) {
             const index = state.data.findIndex((projectRole: ProjectRole) => projectRole._id === action.projectRole._id);
@@ -79,6 +61,15 @@ export const projectRolesReducer = createReducer<ProjectRoleState>(
         return {
             ...state,
             error: action.error
+        };
+    }),
+    on(ProjectRolesActions.deleteAllProjectRolesOfProject, (state, action) => {
+        if (state.data && state.data != null) {
+            state.data = state.data.filter(projectRole => projectRole.projectId === action.projectId);
+        }
+
+        return {
+            ...state
         };
     })
 );
