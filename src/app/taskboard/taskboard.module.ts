@@ -9,6 +9,10 @@ import { projectRolesReducer } from './state/project_roles/project_roles.reducer
 import { tasksReducer } from './state/tasks/tasks.reducer';
 import { TaskDetailComponent } from './task-detail/task-detail.component';
 import { KanbanBoardComponent } from './kanban-board/kanban-board.component';
+import { ProjectsEffects } from './state/projects/projects.effects';
+import { ProjectRolesEffects } from './state/project_roles/project_roles.effects';
+import { TasksEffects } from './state/tasks/tasks.effects';
+import { EffectsModule } from '@ngrx/effects';
 
 
 @NgModule({
@@ -21,7 +25,12 @@ import { KanbanBoardComponent } from './kanban-board/kanban-board.component';
     TaskboardRoutingModule,
     StoreModule.forFeature('projects', projectsReducer),
     StoreModule.forFeature('projectRoles', projectRolesReducer),
-    StoreModule.forFeature('tasks', tasksReducer)
+    StoreModule.forFeature('tasks', tasksReducer),
+    EffectsModule.forFeature([
+      ProjectsEffects,
+      ProjectRolesEffects,
+      TasksEffects
+    ])
   ]
 })
 export class TaskboardModule { }

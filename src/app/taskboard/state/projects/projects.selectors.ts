@@ -1,7 +1,7 @@
 import { createFeatureSelector, createSelector } from "@ngrx/store";
 import { AppState, ProjectState } from "src/app/shared/state";
 import { Project } from "src/app/shared/types";
-import { selectRouteParams } from "./../router.selectors";
+import { selectRouteParams } from "../../../router-state/router-state.selectors";
 
 const projectsFeatureSelector = createFeatureSelector<AppState, ProjectState>('projects');
 

@@ -9,9 +9,13 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { LandingPageComponent } from './landing-page/landing-page.component';
-import { StoreRouterConnectingModule } from '@ngrx/router-store';
+import { NavigationActionTiming, routerReducer, StoreRouterConnectingModule } from '@ngrx/router-store';
 import { TaskboardModule } from './taskboard/taskboard.module';
 import { SharedModule } from './shared/shared.module';
+import { CustomRouterStateSerializer } from './router-state/router-state.serializer';
+import { RouterStateModule } from './router-state/router-state.module';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { CustomHttpInterceptor } from './http-intercepter/http-intercepter.service';
 
 @NgModule({
   declarations: [
@@ -24,12 +28,20 @@ import { SharedModule } from './shared/shared.module';
     TaskboardModule,
     AppRoutingModule,
     SharedModule,
-    StoreModule.forRoot({}, {}),
+    StoreModule.forRoot({
+      router: routerReducer
+    }, {}),
     EffectsModule.forRoot([]),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
-    StoreRouterConnectingModule.forRoot()
+    StoreRouterConnectingModule.forRoot({
+      // serializer: CustomRouterStateSerializer,
+      // navigationActionTiming: NavigationActionTiming.PostActivation,
+    }),
+    // RouterStateModule
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: CustomHttpInterceptor, multi: true },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

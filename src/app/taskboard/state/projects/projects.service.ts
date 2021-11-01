@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/shared/state';
-import { Project } from 'src/app/shared/types';
+import { CurrentUser, Project } from 'src/app/shared/types';
 import { environment } from 'src/environments/environment';
 import * as UserSelectors from '../../../auth/state/current_user/current_user.selectors';
 
@@ -11,15 +11,12 @@ import * as UserSelectors from '../../../auth/state/current_user/current_user.se
   providedIn: 'root'
 })
 export class ProjectsService {
-  headers: HttpHeaders;
-  currentUserId?: string;
+  currentUserId?: string | null;
 
   constructor(
     private store: Store<AppState>,
     private http: HttpClient
   ) {
-    this.headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-
     this.store.select(UserSelectors.getId).subscribe((currentUserId: string | null) => {
       if (currentUserId && currentUserId != null) {
         this.currentUserId = currentUserId;
@@ -28,9 +25,12 @@ export class ProjectsService {
   }
 
   fetchAllProjectsOfCurrentUser() {
-    return this.http.get<Project[]>(environment.apiUrl + '/projects/' + this.currentUserId, {
-      headers: this.headers
-    });
+    return this.http.get<Project[]>(environment.apiUrl + '/projects/' + this.currentUserId);
+  }
+
+  fetch(projectId: string) {
+
+    return this.http.get<Project>(environment.apiUrl + '/projects/' + projectId);
   }
 
   createProject(name: string, description?: string) {
@@ -38,8 +38,6 @@ export class ProjectsService {
       name,
       description,
       adminUserIds: [this.currentUserId]
-    }, {
-      headers: this.headers
     });
   }
 
@@ -49,14 +47,10 @@ export class ProjectsService {
       description,
       adminUserIds,
       invites
-    }, {
-      headers: this.headers
     });
   }
 
   deleteProject(_id: string) {
-    return this.http.post<string>(environment.apiUrl + `/projects/${_id}/delete`, {}, {
-      headers: this.headers
-    });
+    return this.http.post<string>(environment.apiUrl + `/projects/${_id}/delete`, {});
   }
 }

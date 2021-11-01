@@ -9,6 +9,25 @@ const initialState: ProjectState = {
 
 export const projectsReducer = createReducer<ProjectState>(
     initialState as ProjectState,
+    on(ProjectActions.fetchProject_Success, (state, action) => {
+        if (state.data && state.data != null) {
+            return {
+                data: state.data.concat([action.project]),
+                error: null
+            };
+        }
+
+        return {
+            data: [action.project],
+            error: null
+        };
+    }),
+    on(ProjectActions.fetchProject_Failure, (state, action) => {
+        return {
+            ...state,
+            error: action.error
+        };
+    }),
     on(ProjectActions.createProject_Success, (state, action) => {
         if (state.data && state.data != null) {
             state.data.push(action.project);

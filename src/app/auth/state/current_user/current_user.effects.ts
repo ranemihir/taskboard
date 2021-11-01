@@ -25,7 +25,7 @@ export class CurrentUserEffects {
             ofType(CurrentUserActions.login),
             exhaustMap(action => this.currentUserService.login(action.email, action.password).pipe(
                 map((data: CurrentUser) => {
-                    this.router.navigate(['/']);
+                    this.router.navigate(['/617ce5f9fc13ae5fcf00007d']);
                     return CurrentUserActions.login_Success({ data });
                 }),
                 catchError(error => {

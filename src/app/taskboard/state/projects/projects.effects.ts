@@ -33,6 +33,21 @@ export class ProjectsEffects {
         );
     });
 
+    fetch$ = createEffect(() => {
+        return this.$actions.pipe(
+            ofType(ProjectsActions.fetchProject),
+            mergeMap(action => this.projectsService.fetch(action._id).pipe(
+                map((project: Project) => {
+                    return ProjectsActions.fetchProject_Success({ project });
+                }),
+                catchError(error => {
+                    console.error(error);
+                    return of(ProjectsActions.fetchProject_Failure({ error }));
+                })
+            ))
+        );
+    });
+
     create$ = createEffect(() => {
         return this.$actions.pipe(
             ofType(ProjectsActions.createProject),

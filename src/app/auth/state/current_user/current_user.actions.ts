@@ -8,7 +8,7 @@ export const login = createAction(
 );
 
 export const login_Success = createAction(
-    '[Current User] Login (Successful)',
+    '[Current User] Login (Success)',
     props<{ data: CurrentUser; }>()
 );
 
@@ -25,7 +25,7 @@ export const signUp = createAction(
 );
 
 export const signUp_Success = createAction(
-    '[Current User] Sign Up (Successful)',
+    '[Current User] Sign Up (Success)',
     props<{ data: CurrentUser; }>()
 );
 

@@ -1,7 +1,7 @@
 import { createFeatureSelector, createSelector } from "@ngrx/store";
 import { AppState, CurrentUserState, TaskState } from "src/app/shared/state";
 import { Task } from "src/app/shared/types";
-import { selectRouteParams } from "../router.selectors";
+import { selectRouteParams } from "../../../router-state/router-state.selectors";
 
 
 const tasksFeatureSelector = createFeatureSelector<AppState, TaskState>('tasks');

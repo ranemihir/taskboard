@@ -16,6 +16,21 @@ export const fetchAllProjectsOfCurrentUser_Failure = createAction(
     props<{ error: string; }>()
 );
 
+export const fetchProject = createAction(
+    '[Projects] Fetch Project',
+    props<{ _id: string; }>()
+);
+
+export const fetchProject_Success = createAction(
+    '[Projects] Fetch Project (Success)',
+    props<{ project: Project; }>()
+);
+
+export const fetchProject_Failure = createAction(
+    '[Projects] Fetch Project (Failure)',
+    props<{ error: string; }>()
+);
+
 // create
 export const createProject = createAction(
     '[Projects] Create Project',

@@ -1,7 +1,7 @@
 import { createFeatureSelector, createSelector } from "@ngrx/store";
 import { AppState, ProjectRoleState } from "src/app/shared/state";
 import { ProjectRole } from "src/app/shared/types";
-import { selectRouteParams } from "./../router.selectors";
+import { selectRouteParams } from "../../../router-state/router-state.selectors";
 
 const projectRolesFeatureSelector = createFeatureSelector<AppState, ProjectRoleState>('projectRoles');
 

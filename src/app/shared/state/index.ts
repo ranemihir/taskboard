@@ -1,9 +1,14 @@
-import { CurrentUser, Project, ProjectRole, Task } from './../types';
+import { RouterReducerState } from '@ngrx/router-store';
+import { CurrentUser, Project, ProjectRole, Task, CurrentRoute } from './../types';
 
 
 export interface CurrentUserState {
     data: CurrentUser | null;
     error: string | null;
+}
+
+export interface RouterState {
+    router: RouterReducerState<CurrentRoute>;
 }
 
 export interface ProjectState {
@@ -22,6 +27,7 @@ export interface TaskState {
 }
 
 export interface AppState {
+    router: RouterState;
     currentUser: CurrentUserState;
     projects: ProjectState;
     projectRoles: ProjectRoleState;

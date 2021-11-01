@@ -1,5 +1,4 @@
 import { createReducer, on } from "@ngrx/store";
-import { stat } from "fs";
 import { CurrentUserState } from "src/app/shared/state";
 import * as CurrentUserActions from './current_user.actions';
 

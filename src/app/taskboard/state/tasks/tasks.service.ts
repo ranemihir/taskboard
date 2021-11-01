@@ -19,7 +19,7 @@ export class TasksService {
   ) {
     this.headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 
-    this.store.select(UserSelectors.getCurrentUserId).subscribe((currentUserId?: string | null) => {
+    this.store.select(UserSelectors.getId).subscribe((currentUserId?: string | null) => {
       if (currentUserId && currentUserId != null) {
         this.currentUserId = currentUserId;
       }
