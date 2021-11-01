@@ -18,21 +18,6 @@ export class ProjectsEffects {
         private projectsService: ProjectsService
     ) { };
 
-    fetchAllProjectsOfCurrentUser$ = createEffect(() => {
-        return this.$actions.pipe(
-            ofType(ProjectsActions.fetchAllProjectsOfCurrentUser),
-            mergeMap(action => this.projectsService.fetchAllProjectsOfCurrentUser().pipe(
-                map((projects: Project[]) => {
-                    return ProjectsActions.fetchAllProjectsOfCurrentUser_Success({ projects });
-                }),
-                catchError(error => {
-                    console.error(error);
-                    return of(ProjectsActions.fetchAllProjectsOfCurrentUser_Failure({ error }));
-                })
-            ))
-        );
-    });
-
     fetch$ = createEffect(() => {
         return this.$actions.pipe(
             ofType(ProjectsActions.fetchProject),

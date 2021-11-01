@@ -2,20 +2,6 @@ import { createAction, props } from "@ngrx/store";
 import { Project } from "src/app/shared/types";
 
 // retrieve
-export const fetchAllProjectsOfCurrentUser = createAction(
-    '[Projects] Fetch All Projects of Current User'
-);
-
-export const fetchAllProjectsOfCurrentUser_Success = createAction(
-    '[Projects] Fetch All Projects of Current User (Success)',
-    props<{ projects: Project[]; }>()
-);
-
-export const fetchAllProjectsOfCurrentUser_Failure = createAction(
-    '[Projects] Fetch All Projects of Current User (Failure)',
-    props<{ error: string; }>()
-);
-
 export const fetchProject = createAction(
     '[Projects] Fetch Project',
     props<{ _id: string; }>()

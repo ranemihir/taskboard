@@ -12,14 +12,15 @@ const initialState: TaskState = {
 export const tasksReducer = createReducer<TaskState>(
     initialState as TaskState,
     on(TaskActions.fetchAllTasksAssignedToCurrentUserFromAllProjects_Success, (state, action) => {
-        if (!(state.data && state.data != null)) {
-            state.data = [];
+        if (state.data && state.data != null) {
+            return {
+                data: state.data.concat(action.tasks),
+                error: null
+            };
         }
 
-        state.data.concat(action.tasks);
-
         return {
-            ...state,
+            data: [...action.tasks],
             error: null
         };
     }),
@@ -30,14 +31,15 @@ export const tasksReducer = createReducer<TaskState>(
         };
     }),
     on(TaskActions.fetchTasksOfProject_Success, (state, action) => {
-        if (!(state.data && state.data != null)) {
-            state.data = [];
+        if (state.data && state.data != null) {
+            return {
+                data: state.data.concat(action.tasks),
+                error: null
+            };
         }
 
-        state.data.concat(action.tasks);
-
         return {
-            ...state,
+            data: [...action.tasks],
             error: null
         };
     }),
@@ -48,14 +50,15 @@ export const tasksReducer = createReducer<TaskState>(
         };
     }),
     on(TaskActions.createTask_Success, (state, action) => {
-        if (!(state.data && state.data != null)) {
-            state.data = [];
+        if (state.data && state.data != null) {
+            return {
+                data: state.data.concat([action.task]),
+                error: null
+            };
         }
 
-        state.data.push(action.task);
-
         return {
-            ...state,
+            data: [action.task],
             error: null
         };
     }),
@@ -66,16 +69,20 @@ export const tasksReducer = createReducer<TaskState>(
         };
     }),
     on(TaskActions.updateTask_Success, (state, action) => {
-        if (!(state.data && state.data != null)) {
-            state.data = [];
+        if (state.data && state.data != null) {
+            const data = [...state.data];
+            const index = data.findIndex((task: Task) => task._id === action.task._id);
+
+            data[index] = action.task;
+
+            return {
+                data,
+                error: null
+            };
         }
 
-        const index = state.data.findIndex((task: Task) => task._id === action.task._id);
-        state.data[index] = action.task;
-
         return {
-            ...state,
-            error: null
+            ...state
         };
     }),
     on(TaskActions.updateTask_Failure, (state, action) => {
@@ -85,16 +92,15 @@ export const tasksReducer = createReducer<TaskState>(
         };
     }),
     on(TaskActions.deleteTask_Success, (state, action) => {
-        if (!(state.data && state.data != null)) {
-            state.data = [];
+        if (state.data && state.data != null) {
+            return {
+                data: state.data.filter((task: Task) => task._id !== action._id),
+                error: null
+            };
         }
 
-        const index = state.data.findIndex((task: Task) => task._id === action._id);
-        state.data.splice(index, 1);
-
         return {
-            ...state,
-            error: null
+            ...state
         };
     }),
     on(TaskActions.deleteTask_Failure, (state, action) => {
@@ -105,7 +111,10 @@ export const tasksReducer = createReducer<TaskState>(
     }),
     on(TaskActions.deleteAllTasksOfProject, (state, action) => {
         if (state.data && state.data != null) {
-            state.data = state.data.filter(task => task.projectId === action.projectId);
+            return {
+                data: state.data.filter(task => task.projectId !== action.projectId),
+                error: null
+            };
         }
 
         return {

@@ -7,33 +7,24 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class ProjectRolesService {
-  headers: HttpHeaders;
 
   constructor(
     private http: HttpClient
   ) {
-    this.headers = new HttpHeaders({ 'Content-Type': 'application/json' });
   }
 
   fetchAllProjectRolesOfProject(projectId: string) {
     return this.http.get<ProjectRole[]>(
-      environment.apiUrl + `/projects/${projectId}/project_roles`,
-      {
-        headers: this.headers
-      });
+      environment.apiUrl + `/projects/${projectId}/project_roles`);
   }
 
   updateProjectRole(_id: string, authorisedStatusIds: string[]) {
     return this.http.post<ProjectRole>(environment.apiUrl + `/projectRoles/${_id}/update`, {
       authorisedStatusIds
-    }, {
-      headers: this.headers
     });
   }
 
   deleteProjectRole(_id: string) {
-    return this.http.post<string>(environment.apiUrl + `/projectRoles/${_id}/delete`, {}, {
-      headers: this.headers
-    });
+    return this.http.post<string>(environment.apiUrl + `/projectRoles/${_id}/delete`, {});
   }
 }

@@ -8,11 +8,8 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class CurrentUserService {
-  headers: HttpHeaders;
 
-  constructor(private http: HttpClient) {
-    this.headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-  }
+  constructor(private http: HttpClient) { }
 
   signUp(firstName: string, lastName: string, email: string, password: string) {
     return this.http.post<CurrentUser>(environment.apiUrl + '/signup', {
@@ -20,8 +17,6 @@ export class CurrentUserService {
       lastName,
       email,
       password
-    }, {
-      headers: this.headers
     });
   }
 
@@ -29,18 +24,12 @@ export class CurrentUserService {
     return this.http.post<CurrentUser>(environment.apiUrl + '/login', {
       email,
       password
-    }, {
-      headers: this.headers
     });
   }
 
   acceptProjectRoleInvitation(projectId: string) {
-    return this.http.post<ProjectRole>(environment.apiUrl + `/projects/${projectId}/accept_invitation`,
-      {
-        projectId,
-      },
-      {
-        headers: this.headers
-      });
+    return this.http.post<ProjectRole>(environment.apiUrl + `/projects/${projectId}/accept_invitation`, {
+      projectId,
+    });
   }
 };

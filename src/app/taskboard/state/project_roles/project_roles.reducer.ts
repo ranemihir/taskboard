@@ -12,14 +12,15 @@ const initialState: ProjectRoleState = {
 export const projectRolesReducer = createReducer<ProjectRoleState>(
     initialState as ProjectRoleState,
     on(ProjectRolesActions.fetchAllProjectRolesOfProject_Success, (state, action) => {
-        if (!(state.data && state.data != null)) {
-            state.data = [];
+        if (state.data && state.data != null) {
+            return {
+                data: state.data.concat(action.projectRoles),
+                error: null
+            };
         }
 
-        state.data.concat(action.projectRoles);
-
         return {
-            ...state,
+            data: [...action.projectRoles],
             error: null
         };
     }),
@@ -31,13 +32,19 @@ export const projectRolesReducer = createReducer<ProjectRoleState>(
     }),
     on(ProjectRolesActions.updateProjectRole_Success, (state, action) => {
         if (state.data && state.data != null) {
-            const index = state.data.findIndex((projectRole: ProjectRole) => projectRole._id === action.projectRole._id);
-            state.data[index] = action.projectRole;
+            const data = [...state.data];
+            const index = data.findIndex((projectRole: ProjectRole) => projectRole._id === action.projectRole._id);
+
+            data[index] = action.projectRole;
+
+            return {
+                data,
+                error: null
+            };
         }
 
         return {
-            ...state,
-            error: null
+            ...state
         };
     }),
     on(ProjectRolesActions.updateProjectRole_Failure, (state, action) => {
@@ -48,13 +55,14 @@ export const projectRolesReducer = createReducer<ProjectRoleState>(
     }),
     on(ProjectRolesActions.deleteProjectRole_Success, (state, action) => {
         if (state.data && state.data != null) {
-            const index = state.data.findIndex((projectRole: ProjectRole) => projectRole._id === action._id);
-            state.data.splice(index, 1);
+            return {
+                data: state.data.filter((projectRole: ProjectRole) => projectRole._id !== action._id),
+                error: null
+            };
         }
 
         return {
-            ...state,
-            error: null
+            ...state
         };
     }),
     on(ProjectRolesActions.deleteProjectRole_Failure, (state, action) => {
@@ -65,7 +73,10 @@ export const projectRolesReducer = createReducer<ProjectRoleState>(
     }),
     on(ProjectRolesActions.deleteAllProjectRolesOfProject, (state, action) => {
         if (state.data && state.data != null) {
-            state.data = state.data.filter(projectRole => projectRole.projectId === action.projectId);
+            return {
+                data: state.data.filter(projectRole => projectRole.projectId !== action.projectId),
+                error: null
+            };
         }
 
         return {

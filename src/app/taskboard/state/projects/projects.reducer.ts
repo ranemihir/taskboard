@@ -1,5 +1,6 @@
 import { createReducer, on } from "@ngrx/store";
 import { ProjectState } from "src/app/shared/state";
+import { Project } from "src/app/shared/types";
 import * as ProjectActions from "./projects.actions";
 
 const initialState: ProjectState = {
@@ -30,13 +31,14 @@ export const projectsReducer = createReducer<ProjectState>(
     }),
     on(ProjectActions.createProject_Success, (state, action) => {
         if (state.data && state.data != null) {
-            state.data.push(action.project);
-        } else {
-            state.data = [action.project];
+            return {
+                data: state.data.concat(action.project),
+                error: null
+            };
         }
 
         return {
-            ...state,
+            data: [action.project],
             error: null
         };
     }),
@@ -48,16 +50,22 @@ export const projectsReducer = createReducer<ProjectState>(
     }),
     on(ProjectActions.updateProject_Success, (state, action) => {
         if (state.data && state.data != null) {
-            const index = state.data?.findIndex(project => project._id === action.project._id);
+            const data: Project[] = [...state.data];
+
+            const index = data.findIndex(project => project._id === action.project._id);
 
             if (index && index > 0) {
-                state.data[index] = action.project;
+                data[index] = action.project;
             }
+
+            return {
+                data,
+                error: null
+            };
         }
 
         return {
-            ...state,
-            error: null
+            ...state
         };
     }),
     on(ProjectActions.updateProject_Failure, (state, action) => {
@@ -68,16 +76,14 @@ export const projectsReducer = createReducer<ProjectState>(
     }),
     on(ProjectActions.deleteProject_Success, (state, action) => {
         if (state.data && state.data != null) {
-            const index = state.data?.findIndex(project => project._id === action._id);
-
-            if (index && index > 0) {
-                state.data.splice(index, 1);
-            }
+            return {
+                data: state.data.filter((project: Project) => project._id !== action._id),
+                error: null
+            };
         }
 
         return {
-            data: null,
-            error: null
+            ...state
         };
     }),
     on(ProjectActions.deleteProject_Failure, (state, action) => {
