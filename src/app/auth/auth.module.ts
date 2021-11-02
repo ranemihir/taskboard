@@ -7,6 +7,7 @@ import { currentUserReducer } from './state/current_user/current_user.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { CurrentUserEffects } from './state/current_user/current_user.effects';
 import { SharedModule } from '../shared/shared.module';
+import { hydrationMetaReducer } from '../shared/meta-reducers/hydration.meta-reducer';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,9 @@ import { SharedModule } from '../shared/shared.module';
   imports: [
     SharedModule,
     AuthRoutingModule,
-    StoreModule.forFeature('currentUser', currentUserReducer),
+    StoreModule.forFeature('currentUser', currentUserReducer, {
+      metaReducers: [hydrationMetaReducer('currentUser')]
+    }),
     EffectsModule.forFeature([CurrentUserEffects])
   ]
 })

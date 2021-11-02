@@ -20,17 +20,6 @@ export const getId = createSelector(
     }
 );
 
-export const getToken = createSelector(
-    get,
-    (currentUser: CurrentUser | null) => {
-        if (currentUser && currentUser != null) {
-            return currentUser.token;
-        }
-
-        return null;
-    }
-);
-
 export const getError = createSelector(
     featureSelector,
     (state: CurrentUserState) => state.error

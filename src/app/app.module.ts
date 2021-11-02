@@ -17,6 +17,7 @@ import { RouterStateModule } from './router-state/router-state.module';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { CustomHttpInterceptor } from './http-intercepter/http-intercepter.service';
 
+
 @NgModule({
   declarations: [
     AppComponent,

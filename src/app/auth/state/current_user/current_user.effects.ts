@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import * as CurrentUserActions from './current_user.actions';
-import { map, catchError, exhaustMap, mergeMap } from 'rxjs/operators';
+import { map, catchError, exhaustMap, mergeMap, switchMap } from 'rxjs/operators';
 import { CurrentUserService } from "./current_user.service";
 import { of } from "rxjs";
 import { Router } from "@angular/router";
@@ -25,7 +25,7 @@ export class CurrentUserEffects {
             ofType(CurrentUserActions.login),
             exhaustMap(action => this.currentUserService.login(action.email, action.password).pipe(
                 map((data: CurrentUser) => {
-                    this.router.navigate(['/617ce5f9fc13ae5fcf00007d']);
+                    this.router.navigate(['/']);
                     return CurrentUserActions.login_Success({ data });
                 }),
                 catchError(error => {

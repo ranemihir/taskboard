@@ -13,6 +13,7 @@ import { ProjectsEffects } from './state/projects/projects.effects';
 import { ProjectRolesEffects } from './state/project_roles/project_roles.effects';
 import { TasksEffects } from './state/tasks/tasks.effects';
 import { EffectsModule } from '@ngrx/effects';
+import { hydrationMetaReducer } from '../shared/meta-reducers/hydration.meta-reducer';
 
 
 @NgModule({
@@ -23,9 +24,15 @@ import { EffectsModule } from '@ngrx/effects';
   imports: [
     SharedModule,
     TaskboardRoutingModule,
-    StoreModule.forFeature('projects', projectsReducer),
-    StoreModule.forFeature('projectRoles', projectRolesReducer),
-    StoreModule.forFeature('tasks', tasksReducer),
+    StoreModule.forFeature('projects', projectsReducer, {
+      metaReducers: [hydrationMetaReducer('projects')]
+    }),
+    StoreModule.forFeature('projectRoles', projectRolesReducer, {
+      metaReducers: [hydrationMetaReducer('projectRoles')]
+    }),
+    StoreModule.forFeature('tasks', tasksReducer, {
+      metaReducers: [hydrationMetaReducer('tasks')]
+    }),
     EffectsModule.forFeature([
       ProjectsEffects,
       ProjectRolesEffects,
