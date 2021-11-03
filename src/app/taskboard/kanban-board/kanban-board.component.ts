@@ -19,8 +19,8 @@ import { map } from 'rxjs/operators';
 })
 export class KanbanBoardComponent implements OnInit {
   project$: Observable<Project>;
-  projectRoles$: Observable<ProjectRole[]>;
-  tasks$: Observable<Task[]>;
+  projectRolesMap: { [key: string]: ProjectRole; };
+  tasksMap$: Observable<{ [key: string]: Task[]; }>;
 
   avatarUrl: string = environment.avatarUrl;
 
@@ -35,8 +35,36 @@ export class KanbanBoardComponent implements OnInit {
       })
     );
 
-    this.projectRoles$ = this.store.select(ProjectRolesSelectors.fetchAllProjectRolesOfProject);
-    this.tasks$ = this.store.select(TasksSelectors.getTasksOfProject);
+    this.store.select(ProjectRolesSelectors.fetchAllProjectRolesOfProject).pipe(
+      map((projectRoles: ProjectRole[]) => {
+        const projectRolesMap: { [key: string]: ProjectRole; } = {};
+
+        projectRoles.forEach((projectRole: ProjectRole) => {
+          projectRolesMap[projectRole._id] = projectRole;
+        });
+
+        return projectRolesMap;
+      })
+    ).subscribe(projectRolesMap => {
+      this.projectRolesMap = projectRolesMap;
+    });
+
+    this.tasksMap$ = this.store.select(TasksSelectors.getTasksOfProject).pipe(
+      map((tasks: Task[]) => {
+        // TODO: handle tasks with no status
+        const tasksMap: { [key: string]: Task[]; } = {};
+
+        tasks.forEach((task: Task) => {
+          if (!(tasksMap.hasOwnProperty(task.statusId))) {
+            tasksMap[task.statusId] = [];
+          }
+
+          tasksMap[task.statusId].push(task);
+        });
+
+        return tasksMap;
+      })
+    );
 
   }
 
