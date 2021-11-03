@@ -13,6 +13,7 @@ import { ProjectsEffects } from './state/projects/projects.effects';
 import { ProjectRolesEffects } from './state/project_roles/project_roles.effects';
 import { TasksEffects } from './state/tasks/tasks.effects';
 import { EffectsModule } from '@ngrx/effects';
+import { DragulaModule } from 'ng2-dragula';
 
 
 @NgModule({
@@ -23,6 +24,7 @@ import { EffectsModule } from '@ngrx/effects';
   imports: [
     SharedModule,
     TaskboardRoutingModule,
+    DragulaModule.forRoot(),
     StoreModule.forFeature('projects', projectsReducer),
     StoreModule.forFeature('projectRoles', projectRolesReducer),
     StoreModule.forFeature('tasks', tasksReducer),

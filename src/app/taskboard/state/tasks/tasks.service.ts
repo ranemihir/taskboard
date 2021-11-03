@@ -28,7 +28,7 @@ export class TasksService {
     return this.http.get<Task[]>(environment.apiUrl + '/assigned_tasks');
   }
 
-  fetchTasksOfProject(projectId: string) {
+  fetchAllTasksOfProject(projectId: string) {
     return this.http.get<Task[]>(environment.apiUrl + `/projects/${projectId}/tasks`);
   }
 

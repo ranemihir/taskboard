@@ -30,12 +30,12 @@ export class TasksEffects {
         );
     });
 
-    fetchTasksOfProject$ = createEffect(() => {
+    fetchAllTasksOfProject$ = createEffect(() => {
         return this.$actions.pipe(
-            ofType(TaskActions.fetchTasksOfProject),
-            mergeMap(action => this.tasksService.fetchTasksOfProject(action.projectId).pipe(
+            ofType(TaskActions.fetchAllTasksOfProject),
+            mergeMap(action => this.tasksService.fetchAllTasksOfProject(action.projectId).pipe(
                 map((tasks: Task[]) => {
-                    return TaskActions.fetchTasksOfProject_Success({ tasks });
+                    return TaskActions.fetchAllTasksOfProject_Success({ tasks });
                 }),
                 catchError(error => {
                     console.error(error);

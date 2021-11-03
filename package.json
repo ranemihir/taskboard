@@ -24,7 +24,8 @@
     "@ngrx/router-store": "^12.5.0",
     "@ngrx/store": "^12.5.0",
     "@ngrx/store-devtools": "^12.5.0",
-    "bootstrap": "^4.5.0",
+    "bootstrap": "^5.1.0",
+    "ng2-dragula": "^2.1.1",
     "rxjs": "~6.6.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"

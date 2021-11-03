@@ -27,9 +27,10 @@ export const getAllTasksAssignedToCurrentUserFromAllProjects = createSelector(
     }
 );
 
-export const getTasksOfProject = (projectId: string) => createSelector(
+export const getTasksOfProject = createSelector(
     getAllTasks,
-    (tasks: Task[]) => {
+    selectRouteParams,
+    (tasks: Task[], { projectId }) => {
         return tasks.filter((task: Task) => task.projectId === projectId);
     }
 );

@@ -7,4 +7,5 @@ export default interface Task {
     statusId: string;
     priority?: number;
     dueDate?: Date;
+    tags?: string[];
 }

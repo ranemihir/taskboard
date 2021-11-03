@@ -30,7 +30,7 @@ export const tasksReducer = createReducer<TaskState>(
             error: action.error
         };
     }),
-    on(TaskActions.fetchTasksOfProject_Success, (state, action) => {
+    on(TaskActions.fetchAllTasksOfProject_Success, (state, action) => {
         if (state.data && state.data != null) {
             return {
                 data: state.data.concat(action.tasks),

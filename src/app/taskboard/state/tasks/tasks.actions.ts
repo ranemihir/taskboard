@@ -3,18 +3,18 @@ import { Task } from "src/app/shared/types";
 
 
 //retreive
-export const fetchTasksOfProject = createAction(
-    '[Tasks] Fetch Tasks of Project',
+export const fetchAllTasksOfProject = createAction(
+    '[Tasks] Fetch All Tasks of Project',
     props<{ projectId: string; }>()
 );
 
-export const fetchTasksOfProject_Success = createAction(
-    '[Tasks] Fetch Tasks of Project (Success)',
+export const fetchAllTasksOfProject_Success = createAction(
+    '[Tasks] Fetch All Tasks of Project (Success)',
     props<{ tasks: Task[]; }>()
 );
 
 export const fetchAllTasksOfProject_Failure = createAction(
-    '[Tasks] Fetch Tasks of Project (Failure)',
+    '[Tasks] Fetch All Tasks of Project (Failure)',
     props<{ error: string; }>()
 );
 
