@@ -6,4 +6,5 @@ export default interface CurrentUser {
     lastName: string | null;
     email: string | null;
     projectRoles: ProjectRole[];
+    token: string | null;
 };

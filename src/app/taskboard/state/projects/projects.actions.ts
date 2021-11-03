@@ -2,11 +2,6 @@ import { createAction, props } from "@ngrx/store";
 import { Project } from "src/app/shared/types";
 
 // retrieve
-export const fetchProject = createAction(
-    '[Projects] Fetch Project',
-    props<{ _id: string; }>()
-);
-
 export const fetchProject_Success = createAction(
     '[Projects] Fetch Project (Success)',
     props<{ project: Project; }>()

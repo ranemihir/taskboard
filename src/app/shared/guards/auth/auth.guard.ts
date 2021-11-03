@@ -21,7 +21,7 @@ export class AuthGuard implements CanActivate {
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     return this.store.select(CurrentUserSelectors.get).pipe(map(
       (currentUser: CurrentUser | null): boolean => {
-        if (currentUser == null) {
+        if (currentUser && currentUser != null) {
           return true;
         }
 

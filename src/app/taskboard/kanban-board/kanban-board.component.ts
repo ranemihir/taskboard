@@ -15,14 +15,11 @@ export class KanbanBoardComponent implements OnInit {
 
   constructor(
     private store: Store<AppState>
-  ) {
-    this.store.dispatch(ProjectsActions.fetchProject({ _id: '617ce5f9fc13ae5fcf00007d' }));
-  }
+  ) {}
 
   ngOnInit(): void {
     this.store.select(ProjectsSelectors.getProject).subscribe(project => {
       this.project = project;
-      console.log(`project: ${project}`);
     });
   }
 
