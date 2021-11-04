@@ -1,7 +1,42 @@
-<div class="row">
-    <div class="col-12">
-        <h4>
-            
-        </h4>
+<div class="row" *ngIf="data$ | async as data">
+    <div class="col-12 my-4">
+        <h1>{{ data.task.title }}</h1>
+    </div>
+    <div class="row mt-4">
+        <div class="col-3">
+            <h6 class="mb-3">Tags</h6>
+            <div>
+                <h5>
+                    <span class="badge bg-secondary me-2 shadow-sm" *ngFor="let tag of data.task.tags">
+                        {{ tag }}
+                    </span>
+                </h5>
+            </div>
+        </div>
+        <div class="col-3">
+            <h6 class="mb-3">Due Date</h6>
+            <p>{{ data.task.dueDate | date }}</p>
+        </div>
+        <div class="col-3">
+            <h6 class="mb-3">Assigned To</h6>
+            <div>
+                <img [src]="avatarUrl + data.task.assignedTo" class="img-thumbnail rounded-circle me-1 shadow-sm" />
+                <span>
+                    {{ data.projectRole.firstName + ' ' + data.projectRole.lastName }}
+                </span>
+            </div>
+        </div>
+        <div class="col-3">
+            <h6 class="mb-3">Prority</h6>
+            <h5>
+                <span *ngIf="data.task.priority == 3" class="badge rounded-pill bg-success shadow-sm">Low</span>
+            </h5>
+            <h5>
+                <span *ngIf="data.task.priority == 2" class="badge rounded-pill bg-warning shadow-sm">Medium</span>
+            </h5>
+            <h5>
+                <span *ngIf="data.task.priority == 1" class="badge rounded-pill bg-danger shadow-sm">High</span>
+            </h5>
+        </div>
     </div>
 </div>

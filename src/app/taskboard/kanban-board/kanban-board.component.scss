@@ -10,7 +10,7 @@
     overflow-x: auto;
 }
 
-.tasks {
+.status {
     display: inline-block;
     width: 22rem;
     padding: 0 1rem 1rem 1rem;
@@ -19,7 +19,7 @@
     margin-bottom: $grid-gutter-width;
     background-color: $gray-200;
 
-    &.tasks:not(:last-child) {
+    &.status:not(:last-child) {
         margin-right: 1.25rem;
     }
 
@@ -29,7 +29,7 @@
         border-radius: 12px;
     }
 
-    .task-header {
+    .status-header {
         padding: 1rem;
     }
 }
@@ -46,4 +46,8 @@
         text-align: center;
         font-weight: 600;
     }
+}
+
+.task-header:hover {
+    text-decoration: underline;
 }

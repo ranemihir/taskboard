@@ -74,11 +74,10 @@ export class KanbanBoardComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.projectRolesMapSub.unsubscribe();
   }
 
   ngOnDestroy(): void {
-
+    this.projectRolesMapSub.unsubscribe();
   }
 
 }

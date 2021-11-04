@@ -8,7 +8,7 @@ const tasksFeatureSelector = createFeatureSelector<AppState, TaskState>('tasks')
 
 const getAllTasks = createSelector(
     tasksFeatureSelector,
-    (taskState: TaskState) => taskState.data || []
+    (taskState: TaskState) => taskState.data || {}
 );
 
 const currentUserFeatureSelector = createFeatureSelector<AppState, CurrentUserState>('currentUser');
@@ -17,26 +17,26 @@ const currentUserFeatureSelector = createFeatureSelector<AppState, CurrentUserSt
 export const getAllTasksAssignedToCurrentUserFromAllProjects = createSelector(
     getAllTasks,
     currentUserFeatureSelector,
-    (tasks: Task[], currentUser: CurrentUserState) => {
-        if (currentUser.data && currentUser.data != null) {
-            const userId = currentUser.data._id;
-            return tasks.filter((task: Task) => task.assignedTo === userId);
-        }
-
-        return null;
-    }
+    (tasks: { [key: string]: Omit<Task, '_id'>; }, currentUser: CurrentUserState) => ({
+        ...(Object.keys(tasks).filter((_id: string) => tasks[_id].assignedTo === currentUser.data._id).reduce((acc, _id: string) => ({
+            ...acc,
+            [_id]: { ...tasks[_id] }
+        }), {}))
+    })
 );
 
-export const getTasksOfProject = createSelector(
+export const getAllTasksOfProject = createSelector(
     getAllTasks,
     selectRouteParams,
-    (tasks: Task[], { projectId }) => {
-        return tasks.filter((task: Task) => task.projectId === projectId);
-    }
+    (tasks: { [key: string]: Omit<Task, '_id'>; }, { projectId }) => ({
+        ...(Object.keys(tasks).filter((_id: string) => tasks[_id].projectId === projectId).reduce((acc, _id: string) => ({
+            ...acc,
+            [_id]: { ...tasks[_id] }
+        }), {}))
+    })
 );
 
 export const getTask = createSelector(
     getAllTasks,
     selectRouteParams,
-    (tasks: Task[], { taskId }) => tasks.find((task: Task) => task._id === taskId)
-);
+    (tasks: { [key: string]: Omit<Task, '_id'>; }, { taskId }) => tasks[taskId]);

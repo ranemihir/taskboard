@@ -7,18 +7,23 @@ const projectRolesFeatureSelector = createFeatureSelector<AppState, ProjectRoleS
 
 const getAllProjectRoles = createSelector(
     projectRolesFeatureSelector,
-    (projectRoleState: ProjectRoleState) => projectRoleState.data || []
+    (projectRoleState: ProjectRoleState) => projectRoleState.data || {}
 );
 
-export const getProjectRoleFactorySelector = (userId: string, projectId: string) => createSelector(
+export const getProjectRoleFactorySelector = (projectRoleId: string) => createSelector(
     getAllProjectRoles,
-    (projectRoles: ProjectRole[]) => projectRoles.find((projectRole: ProjectRole) => (projectRole.userId === userId && projectRole.projectId === projectId))
+    (projectRoles: { [key: string]: Omit<ProjectRole, '_id'>; }) => projectRoles[projectRoleId]
 );
 
 export const fetchAllProjectRolesOfProject = createSelector(
     getAllProjectRoles,
     selectRouteParams,
-    (projectRoles: ProjectRole[], { projectId }) => projectRoles.filter((projectRole: ProjectRole) => projectRole.projectId === projectId)
+    (projectRoles: { [key: string]: Omit<ProjectRole, '_id'>; }, { projectId }) => ({
+        ...(Object.keys(projectRoles).filter((_id: string) => projectRoles[_id].projectId === projectId).reduce((acc, _id) => ({
+            ...acc,
+            [_id]: projectRoles[_id]
+        }), {}))
+    })
 );
 
 export const getProjectRolesError = createSelector(

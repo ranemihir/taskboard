@@ -1,13 +1,11 @@
+import Status from "./status";
+
+
 export default interface Project {
     _id: string;
     name: string;
     description?: string;
     adminUserIds: string[];
     invites?: string[];
-    statuses?: Status[];
+    statuses?: { [key: string]: Status; };
 };
-
-interface Status {
-    _id: string;
-    name: string;
-}

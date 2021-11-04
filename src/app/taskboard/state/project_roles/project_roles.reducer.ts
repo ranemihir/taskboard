@@ -1,3 +1,4 @@
+import { Statement } from "@angular/compiler";
 import { createReducer, on } from "@ngrx/store";
 import { ProjectRoleState } from "src/app/shared/state";
 import { ProjectRole } from "src/app/shared/types";
@@ -5,22 +6,21 @@ import * as ProjectRolesActions from "./project_roles.actions";
 
 
 const initialState: ProjectRoleState = {
-    data: null,
+    data: {},
     error: null
 };
 
 export const projectRolesReducer = createReducer<ProjectRoleState>(
     initialState as ProjectRoleState,
     on(ProjectRolesActions.fetchAllProjectRolesOfProject_Success, (state, action) => {
-        if (state.data && state.data != null) {
-            return {
-                data: state.data.concat(action.projectRoles),
-                error: null
-            };
-        }
-
         return {
-            data: [...action.projectRoles],
+            data: {
+                ...state.data,
+                ...(action.projectRoles.reduce((acc, val: ProjectRole) => ({
+                    ...acc,
+                    [val._id]: { ...val }
+                }), {}))
+            },
             error: null
         };
     }),
@@ -31,20 +31,12 @@ export const projectRolesReducer = createReducer<ProjectRoleState>(
         };
     }),
     on(ProjectRolesActions.updateProjectRole_Success, (state, action) => {
-        if (state.data && state.data != null) {
-            const data = [...state.data];
-            const index = data.findIndex((projectRole: ProjectRole) => projectRole._id === action.projectRole._id);
-
-            data[index] = action.projectRole;
-
-            return {
-                data,
-                error: null
-            };
-        }
-
         return {
-            ...state
+            data: {
+                ...state.data,
+                [action.projectRole._id]: { ...action.projectRole }
+            },
+            error: null
         };
     }),
     on(ProjectRolesActions.updateProjectRole_Failure, (state, action) => {
@@ -54,15 +46,12 @@ export const projectRolesReducer = createReducer<ProjectRoleState>(
         };
     }),
     on(ProjectRolesActions.deleteProjectRole_Success, (state, action) => {
-        if (state.data && state.data != null) {
-            return {
-                data: state.data.filter((projectRole: ProjectRole) => projectRole._id !== action._id),
-                error: null
-            };
-        }
-
         return {
-            ...state
+            data: {
+                ...state.data,
+                [action._id]: undefined
+            },
+            error: null
         };
     }),
     on(ProjectRolesActions.deleteProjectRole_Failure, (state, action) => {
@@ -72,15 +61,14 @@ export const projectRolesReducer = createReducer<ProjectRoleState>(
         };
     }),
     on(ProjectRolesActions.deleteAllProjectRolesOfProject, (state, action) => {
-        if (state.data && state.data != null) {
-            return {
-                data: state.data.filter(projectRole => projectRole.projectId !== action.projectId),
-                error: null
-            };
-        }
-
         return {
-            ...state
+            data: {
+                ...(Object.keys(state.data).filter((_id: string) => state.data[_id].projectId !== action.projectId).reduce((acc, _id: string) => ({
+                    ...acc,
+                    [_id]: { ...state.data[_id] }
+                }), {}))
+            },
+            error: null
         };
     })
 );

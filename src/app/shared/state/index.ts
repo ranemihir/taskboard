@@ -12,17 +12,17 @@ export interface RouterState {
 }
 
 export interface ProjectState {
-    data: Project[] | null;
+    data: { [key: string]: Omit<Project, '_id'>; };
     error: string | null;
 }
 
 export interface ProjectRoleState {
-    data: ProjectRole[] | null;
+    data: { [key: string]: Omit<ProjectRole, '_id'>; };
     error: string | null;
 }
 
 export interface TaskState {
-    data: Task[] | null;
+    data: { [key: string]: Omit<Task, '_id'>; };
     error: string | null;
 }
 

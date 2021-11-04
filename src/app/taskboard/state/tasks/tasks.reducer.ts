@@ -5,22 +5,21 @@ import * as TaskActions from "./tasks.actions";
 
 
 const initialState: TaskState = {
-    data: null,
+    data: {},
     error: null
 };
 
 export const tasksReducer = createReducer<TaskState>(
     initialState as TaskState,
     on(TaskActions.fetchAllTasksAssignedToCurrentUserFromAllProjects_Success, (state, action) => {
-        if (state.data && state.data != null) {
-            return {
-                data: state.data.concat(action.tasks),
-                error: null
-            };
-        }
-
         return {
-            data: [...action.tasks],
+            data: {
+                ...state.data,
+                ...(action.tasks.reduce((acc, task: Task) => ({
+                    ...acc,
+                    [task._id]: { ...task }
+                }), {}))
+            },
             error: null
         };
     }),
@@ -31,15 +30,14 @@ export const tasksReducer = createReducer<TaskState>(
         };
     }),
     on(TaskActions.fetchAllTasksOfProject_Success, (state, action) => {
-        if (state.data && state.data != null) {
-            return {
-                data: state.data.concat(action.tasks),
-                error: null
-            };
-        }
-
         return {
-            data: [...action.tasks],
+            data: {
+                ...state.data,
+                ...(action.tasks.reduce((acc, task: Task) => ({
+                    ...acc,
+                    [task._id]: { ...task }
+                }), {}))
+            },
             error: null
         };
     }),
@@ -50,15 +48,11 @@ export const tasksReducer = createReducer<TaskState>(
         };
     }),
     on(TaskActions.createTask_Success, (state, action) => {
-        if (state.data && state.data != null) {
-            return {
-                data: state.data.concat([action.task]),
-                error: null
-            };
-        }
-
         return {
-            data: [action.task],
+            data: {
+                ...state.data,
+                [action.task._id]: action.task
+            },
             error: null
         };
     }),
@@ -69,20 +63,12 @@ export const tasksReducer = createReducer<TaskState>(
         };
     }),
     on(TaskActions.updateTask_Success, (state, action) => {
-        if (state.data && state.data != null) {
-            const data = [...state.data];
-            const index = data.findIndex((task: Task) => task._id === action.task._id);
-
-            data[index] = action.task;
-
-            return {
-                data,
-                error: null
-            };
-        }
-
         return {
-            ...state
+            data: {
+                ...state.data,
+                [action.task._id]: { ...action.task }
+            },
+            error: null
         };
     }),
     on(TaskActions.updateTask_Failure, (state, action) => {
@@ -92,15 +78,12 @@ export const tasksReducer = createReducer<TaskState>(
         };
     }),
     on(TaskActions.deleteTask_Success, (state, action) => {
-        if (state.data && state.data != null) {
-            return {
-                data: state.data.filter((task: Task) => task._id !== action._id),
-                error: null
-            };
-        }
-
         return {
-            ...state
+            data: {
+                ...state.data,
+                [action._id]: undefined
+            },
+            error: null
         };
     }),
     on(TaskActions.deleteTask_Failure, (state, action) => {
@@ -110,15 +93,14 @@ export const tasksReducer = createReducer<TaskState>(
         };
     }),
     on(TaskActions.deleteAllTasksOfProject, (state, action) => {
-        if (state.data && state.data != null) {
-            return {
-                data: state.data.filter(task => task.projectId !== action.projectId),
-                error: null
-            };
-        }
-
         return {
-            ...state
+            data: {
+                ...(Object.keys(state.data).filter((_id: string) => state.data[_id].projectId !== action.projectId).reduce((acc, _id: string) => ({
+                    ...acc,
+                    [_id]: state.data[_id]
+                }), {}))
+            },
+            error: null
         };
     })
 );

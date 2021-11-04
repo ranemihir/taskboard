@@ -4,22 +4,18 @@ import { Project } from "src/app/shared/types";
 import * as ProjectActions from "./projects.actions";
 
 const initialState: ProjectState = {
-    data: null,
+    data: {},
     error: null
 };
 
 export const projectsReducer = createReducer<ProjectState>(
     initialState as ProjectState,
     on(ProjectActions.fetchProject_Success, (state, action) => {
-        if (state.data && state.data != null) {
-            return {
-                data: state.data.concat([action.project]),
-                error: null
-            };
-        }
-
         return {
-            data: [action.project],
+            data: {
+                ...state.data,
+                [action.project._id]: { ...action.project }
+            },
             error: null
         };
     }),
@@ -30,15 +26,11 @@ export const projectsReducer = createReducer<ProjectState>(
         };
     }),
     on(ProjectActions.createProject_Success, (state, action) => {
-        if (state.data && state.data != null) {
-            return {
-                data: state.data.concat(action.project),
-                error: null
-            };
-        }
-
         return {
-            data: [action.project],
+            data: {
+                ...state.data,
+                [action.project._id]: { ...action.project }
+            },
             error: null
         };
     }),
@@ -49,23 +41,12 @@ export const projectsReducer = createReducer<ProjectState>(
         };
     }),
     on(ProjectActions.updateProject_Success, (state, action) => {
-        if (state.data && state.data != null) {
-            const data: Project[] = [...state.data];
-
-            const index = data.findIndex(project => project._id === action.project._id);
-
-            if (index && index > 0) {
-                data[index] = action.project;
-            }
-
-            return {
-                data,
-                error: null
-            };
-        }
-
         return {
-            ...state
+            data: {
+                ...state.data,
+                [action.project._id]: { ...action.project }
+            },
+            error: null
         };
     }),
     on(ProjectActions.updateProject_Failure, (state, action) => {
@@ -77,13 +58,17 @@ export const projectsReducer = createReducer<ProjectState>(
     on(ProjectActions.deleteProject_Success, (state, action) => {
         if (state.data && state.data != null) {
             return {
-                data: state.data.filter((project: Project) => project._id !== action._id),
+                data: {
+                    ...state.data,
+                    [action._id]: undefined
+                },
                 error: null
             };
         }
 
         return {
-            ...state
+            ...state,
+            error: null
         };
     }),
     on(ProjectActions.deleteProject_Failure, (state, action) => {

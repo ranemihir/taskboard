@@ -7,7 +7,7 @@ const projectsFeatureSelector = createFeatureSelector<AppState, ProjectState>('p
 
 export const getAllProjectsOfCurrentUser = createSelector(
     projectsFeatureSelector,
-    (projectsState: ProjectState) => projectsState.data || []
+    (projectsState: ProjectState) => projectsState.data || {}
 );
 
 export const getProjectsError = createSelector(
@@ -18,6 +18,6 @@ export const getProjectsError = createSelector(
 export const getProject = createSelector(
     getAllProjectsOfCurrentUser,
     selectRouteParams,
-    (projects: Project[], { projectId }) => projects.find((project: Project) => project._id === projectId)
+    (projects: { [key: string]: Omit<Project, "_id">; }, { projectId }) => projects[projectId]
 );
 
