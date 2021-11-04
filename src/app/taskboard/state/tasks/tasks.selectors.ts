@@ -1,7 +1,8 @@
 import { createFeatureSelector, createSelector } from "@ngrx/store";
-import { AppState, CurrentUserState, TaskState } from "src/app/shared/state";
-import { Task } from "src/app/shared/types";
+import { AppState, CurrentUserState, ProjectState, TaskState } from "src/app/shared/state";
+import { Project, Task } from "src/app/shared/types";
 import { selectRouteParams } from "../../../router-state/router-state.selectors";
+import { getAllProjectsOfCurrentUser } from "../projects/projects.selectors";
 
 
 const tasksFeatureSelector = createFeatureSelector<AppState, TaskState>('tasks');
@@ -12,7 +13,6 @@ const getAllTasks = createSelector(
 );
 
 const currentUserFeatureSelector = createFeatureSelector<AppState, CurrentUserState>('currentUser');
-
 
 export const getAllTasksAssignedToCurrentUserFromAllProjects = createSelector(
     getAllTasks,
@@ -25,18 +25,30 @@ export const getAllTasksAssignedToCurrentUserFromAllProjects = createSelector(
     })
 );
 
+
 export const getAllTasksOfProject = createSelector(
+    getAllProjectsOfCurrentUser,
     getAllTasks,
     selectRouteParams,
-    (tasks: { [key: string]: Omit<Task, '_id'>; }, { projectId }) => ({
-        ...(Object.keys(tasks).filter((_id: string) => tasks[_id].projectId === projectId).reduce((acc, _id: string) => ({
+    (projects: { [key: string]: Omit<Project, '_id'>; }, tasks: { [key: string]: Omit<Task, '_id'>; }, { projectId }) => {
+        const tasksFilteredByStatus = Object.keys(projects[projectId].statuses).map((statusId: string): { [key: string]: { [key: string]: Omit<Task, '_id'>; }; } => {
+            return {
+                [statusId]: (Object.keys(tasks).filter((taskId: string) => tasks[taskId].statusId === statusId).reduce((acc, _id): { [key: string]: Omit<Task, '_id'>; } => ({
+                    ...acc,
+                    [_id]: { ...tasks[_id] }
+                }), {}))
+            };
+        });
+
+        return tasksFilteredByStatus.reduce((acc, val) => ({
             ...acc,
-            [_id]: { ...tasks[_id] }
-        }), {}))
-    })
+            ...val
+        }), {});
+    }
 );
 
 export const getTask = createSelector(
     getAllTasks,
     selectRouteParams,
-    (tasks: { [key: string]: Omit<Task, '_id'>; }, { taskId }) => tasks[taskId]);
+    (tasks: { [key: string]: Omit<Task, '_id'>; }, { taskId }) => ({ ...tasks[taskId], _id: taskId })
+);

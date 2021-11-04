@@ -18,6 +18,6 @@ export const getProjectsError = createSelector(
 export const getProject = createSelector(
     getAllProjectsOfCurrentUser,
     selectRouteParams,
-    (projects: { [key: string]: Omit<Project, "_id">; }, { projectId }) => projects[projectId]
+    (projects: { [key: string]: Omit<Project, "_id">; }, { projectId }) => ({ ...projects[projectId], _id: projectId })
 );
 

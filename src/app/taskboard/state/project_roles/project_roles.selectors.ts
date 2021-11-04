@@ -12,7 +12,7 @@ const getAllProjectRoles = createSelector(
 
 export const getProjectRoleFactorySelector = (projectRoleId: string) => createSelector(
     getAllProjectRoles,
-    (projectRoles: { [key: string]: Omit<ProjectRole, '_id'>; }) => projectRoles[projectRoleId]
+    (projectRoles: { [key: string]: Omit<ProjectRole, '_id'>; }) => ({ ...projectRoles[projectRoleId], _id: projectRoleId })
 );
 
 export const fetchAllProjectRolesOfProject = createSelector(

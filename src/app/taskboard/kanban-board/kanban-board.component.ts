@@ -20,9 +20,9 @@ import { map } from 'rxjs/operators';
 })
 export class KanbanBoardComponent implements OnInit, OnDestroy {
   project$: Observable<Project>;
-  projectRolesMap: { [key: string]: ProjectRole; };
-  projectRolesMapSub: Subscription;
-  tasksMap$: Observable<{ [key: string]: Task[]; }>;
+  projectRoles: { [key: string]: Omit<ProjectRole, '_id'>; };
+  projectRolesSub: Subscription;
+  tasks$: Observable<{ [key: string]: { [key: string]: Omit<Task, '_id'>; }; }>;
   currentUser$: Observable<CurrentUser>;
 
   avatarUrl: string = environment.avatarUrl;
@@ -38,46 +38,20 @@ export class KanbanBoardComponent implements OnInit, OnDestroy {
       })
     );
 
-    this.projectRolesMapSub = this.store.select(ProjectRolesSelectors.fetchAllProjectRolesOfProject).pipe(
-      map((projectRoles: ProjectRole[]) => {
-        const projectRolesMap: { [key: string]: ProjectRole; } = {};
-
-        projectRoles.forEach((projectRole: ProjectRole) => {
-          projectRolesMap[projectRole._id] = projectRole;
-        });
-
-        return projectRolesMap;
-      })
-    ).subscribe(projectRolesMap => {
-      this.projectRolesMap = projectRolesMap;
+    this.projectRolesSub = this.store.select(ProjectRolesSelectors.fetchAllProjectRolesOfProject).subscribe(projectRoles => {
+      this.projectRoles = projectRoles;
     });
 
-    this.tasksMap$ = this.store.select(TasksSelectors.getTasksOfProject).pipe(
-      map((tasks: Task[]) => {
-        // TODO: handle tasks with no status
-        const tasksMap: { [key: string]: Task[]; } = {};
-
-        tasks.forEach((task: Task) => {
-          if (!(tasksMap.hasOwnProperty(task.statusId))) {
-            tasksMap[task.statusId] = [];
-          }
-
-          tasksMap[task.statusId].push(task);
-        });
-
-        return tasksMap;
-      })
-    );
+    this.tasks$ = this.store.select(TasksSelectors.getAllTasksOfProject);
 
     this.currentUser$ = this.store.select(CurrentUserSelectors.get);
-
   }
 
   ngOnInit(): void {
   }
 
   ngOnDestroy(): void {
-    this.projectRolesMapSub.unsubscribe();
+    this.projectRolesSub.unsubscribe();
   }
 
 }
