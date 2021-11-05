@@ -2,8 +2,9 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from '../shared/guards/auth/auth.guard';
 import { KanbanBoardComponent } from './kanban-board/kanban-board.component';
-import { ProjectResolver } from './state/projects/project.resolver';
+import { ProjectResolver } from './kanban-board/kanban-baord.product.resolver';
 import { TaskDetailComponent } from './task-detail/task-detail.component';
+import { TaskDetailResolver } from './task-detail/task-detail.resolver';
 
 const routes: Routes = [
     {
@@ -16,7 +17,10 @@ const routes: Routes = [
     },
     {
         path: ':projectId/:taskId',
-        component: TaskDetailComponent
+        component: TaskDetailComponent,
+        resolve: {
+            taskData: TaskDetailResolver
+        }
     },
 ];
 

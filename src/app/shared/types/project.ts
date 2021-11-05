@@ -7,5 +7,5 @@ export default interface Project {
     description?: string;
     adminUserIds: string[];
     invites?: string[];
-    statuses?: { [key: string]: Status; };
+    statuses?: Status[];
 };

@@ -11,6 +11,21 @@ const initialState: TaskState = {
 
 export const tasksReducer = createReducer<TaskState>(
     initialState as TaskState,
+    on(TaskActions.fetchTask_Success, (state, action) => {
+        return {
+            data: {
+                ...state.data,
+                [action.task._id]: action.task
+            },
+            error: null
+        };
+    }),
+    on(TaskActions.fetchTask_Failure, (state, action) => {
+        return {
+            ...state,
+            error: null
+        };
+    }),
     on(TaskActions.fetchAllTasksAssignedToCurrentUserFromAllProjects_Success, (state, action) => {
         return {
             data: {

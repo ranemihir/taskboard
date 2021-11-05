@@ -18,18 +18,17 @@
     <div class="row">
         <div class="col-12">
             <div class="board">
-                <div class="status" *ngFor="let status of project.statuses | keyvalue">
-                    <div [id]="status.key"
+                <div class="status" *ngFor="let status of project.statuses">
+                    <div [id]="status._id"
                         class="card border-0 shadow-sm border border-2 border-secondary d-flex flex-row justify-content-between align-items-center">
-                        <h5 class="status-header mb-0">{{ status.value.name | titlecase }}</h5>
+                        <h5 class="status-header mb-0">{{ status.name | titlecase }}</h5>
                         <button class="btn rounded-circle me-3 pt-1 shadow-sm border border-2 border-info text-muted">
                             +
                         </button>
                     </div>
-
                     <div class="task-list-items" dragula="DRAGULA_TASKS" *ngIf="tasks$ | async as tasks">
-                        <div class="card mb-0 shadow border-0" style="cursor: pointer;"
-                            *ngFor="let task of tasks[status.key] | keyvalue">
+                        <div class="card mb-0 shadow" style="cursor: pointer;"
+                            *ngFor="let task of tasks[status._id] | keyvalue">
                             <div class="card-body p-3">
                                 <div class="d-flex flex-row justify-content-between">
                                     <small class="float-right text-muted d-flex flex-row align-items-center">
@@ -52,9 +51,9 @@
                                 <div *ngIf="task.value.assignedTo in projectRoles">
                                     <img [src]="avatarUrl + task.value.assignedTo"
                                         class="img-thumbnail rounded-circle me-1 shadow-sm" />
-                                    <span class="align-middle">
-                                        {{ projectRoles[task.value.assignedTo].firstName + ' ' +
-                                        projectRoles[task.value.assignedTo].lastName }}
+                                    <span class="align-middle"
+                                        *ngIf="projectRoles[task.value.assignedTo] as projectRole">
+                                        {{ projectRole.firstName + ' ' + projectRole.lastName }}
                                     </span>
                                 </div>
                             </div>

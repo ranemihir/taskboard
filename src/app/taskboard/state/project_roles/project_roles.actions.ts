@@ -3,6 +3,16 @@ import { ProjectRole } from "src/app/shared/types";
 
 
 // retreive
+export const fetchProjectRole_Success = createAction(
+    '[Project Roles] Fetch Project Role (Success)',
+    props<{ projectRole: ProjectRole; }>()
+);
+
+export const fetchProjectRole_Failure = createAction(
+    '[Project Roles] Fetch Project Role (Failure)',
+    props<{ error: string; }>()
+);
+
 export const fetchAllProjectRolesOfProject = createAction(
     '[Project Roles] Fetch All Project Roles of Project',
     props<{ projectId: string; }>()

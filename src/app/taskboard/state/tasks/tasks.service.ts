@@ -24,6 +24,10 @@ export class TasksService {
     });
   }
 
+  fetchTask(projectId: string, taskId: string) {
+    return this.http.get<Task>(environment.apiUrl + `/projects/${projectId}/tasks/${taskId}`);
+  }
+
   fetchAllTasksAssignedToCurrentUserFromAllProjects() {
     return this.http.get<Task[]>(environment.apiUrl + '/assigned_tasks');
   }

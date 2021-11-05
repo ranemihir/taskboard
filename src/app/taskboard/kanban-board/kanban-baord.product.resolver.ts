@@ -5,8 +5,8 @@ import { EMPTY, Observable } from "rxjs";
 import { catchError, map } from "rxjs/operators";
 import { AppState } from "src/app/shared/state";
 import { Project } from "src/app/shared/types";
-import { ProjectsService } from "./projects.service";
-import * as ProjectsActions from "./projects.actions";
+import { ProjectsService } from "../state/projects/projects.service";
+import * as ProjectsActions from "../state/projects/projects.actions";
 
 @Injectable({
     providedIn: 'root'

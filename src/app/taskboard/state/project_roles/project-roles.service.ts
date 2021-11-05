@@ -13,6 +13,10 @@ export class ProjectRolesService {
   ) {
   }
 
+  fetchProjectRole(projectId: string, projectRoleId: string) {
+    return this.http.get<ProjectRole>(environment.apiUrl + `/projects/${projectId}/project_roles/${projectRoleId}`);
+  }
+
   fetchAllProjectRolesOfProject(projectId: string) {
     return this.http.get<ProjectRole[]>(
       environment.apiUrl + `/projects/${projectId}/project_roles`);

@@ -12,6 +12,21 @@ const initialState: ProjectRoleState = {
 
 export const projectRolesReducer = createReducer<ProjectRoleState>(
     initialState as ProjectRoleState,
+    on(ProjectRolesActions.fetchProjectRole_Success, (state, action) => {
+        return {
+            data: {
+                ...state.data,
+                [action.projectRole._id]: action.projectRole
+            },
+            error: null
+        };
+    }),
+    on(ProjectRolesActions.fetchProjectRole_Failure, (state, action) => {
+        return {
+            ...state,
+            error: action.error
+        };
+    }),
     on(ProjectRolesActions.fetchAllProjectRolesOfProject_Success, (state, action) => {
         return {
             data: {
