@@ -6,12 +6,10 @@
         </a>
         <div class="d-flex">
             <span *ngIf="currentUser$ | async as currentUser; else get_started" class="d-flex align-items-center">
-                <strong class="me-2" style="font-weight: 500;">{{ currentUser.firstName + ' ' + currentUser.lastName
-                    }}</strong>
                 <img [src]="avatarUrl + currentUser._id" class="img-thumbnail rounded-circle shadow-sm" />
             </span>
             <ng-template #get_started>
-                <button class="btn btn-outline-light" routerLink="/signup">Get Started</button>
+                <button class="btn btn-primary rounded-pill shadow-sm" routerLink="/signup">Get Started</button>
             </ng-template>
         </div>
     </div>

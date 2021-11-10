@@ -23,6 +23,7 @@ export class AnonymousGuard implements CanActivate {
     return this.store.select(CurrentUserSelectors.get).pipe(map(
       (currentUser: CurrentUser | null): boolean => {
         if (currentUser && currentUser != null) {
+          this.router.navigateByUrl('/dashboard');
           return false;
         }
 

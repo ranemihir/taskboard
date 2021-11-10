@@ -18,7 +18,13 @@ function getHomeComponent() {
 const routes: Routes = [
   {
     path: '',
-    component: getHomeComponent(),
+    component: LandingPageComponent,
+    canActivate: [AnonymousGuard]
+  },
+  {
+    path: 'dashboard',
+    component: DashboardComponent,
+    canActivate: [AuthGuard],
     resolve: {
       projects: DashboardResolver
     }
