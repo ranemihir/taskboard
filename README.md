@@ -1,6 +1,6 @@
 # TaskBoard
 
-![Logo](https://github.com/ranemihir/taskboard/blob/main/screenshots/logo.png)
+<img src="https://github.com/ranemihir/taskboard/blob/main/screenshots/logo.png" alt="Logo" width="100%">
 
 # Screenshots
 
