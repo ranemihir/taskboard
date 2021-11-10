@@ -28,6 +28,12 @@ export class ProjectRolesService {
     });
   }
 
+  acceptProjectRoleInvitation(projectId: string) {
+    return this.http.post<ProjectRole>(environment.apiUrl + `/projects/${projectId}/accept_invitation`, {
+      projectId,
+    });
+  }
+
   deleteProjectRole(_id: string) {
     return this.http.post<string>(environment.apiUrl + `/projectRoles/${_id}/delete`, {});
   }

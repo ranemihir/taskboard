@@ -49,19 +49,4 @@ export class CurrentUserEffects {
         );
     });
 
-    acceptProjectRoleInvitation$ = createEffect(() => {
-        return this.$actions.pipe(
-            ofType(CurrentUserActions.acceptProjectRoleInvitation),
-            mergeMap(action => this.currentUserService.acceptProjectRoleInvitation(action.projectId).pipe(
-                map((projectRole: ProjectRole) => {
-                    return CurrentUserActions.acceptProjectRoleInvitation_Success({ projectRole });
-                }),
-                catchError(error => {
-                    console.error(error);
-                    return of(CurrentUserActions.acceptProjectRoleInvitation_Failure({ error }));
-                })
-            ))
-        );
-    });
-
 }

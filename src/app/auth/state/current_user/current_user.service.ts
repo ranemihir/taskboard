@@ -26,10 +26,4 @@ export class CurrentUserService {
       password
     });
   }
-
-  acceptProjectRoleInvitation(projectId: string) {
-    return this.http.post<ProjectRole>(environment.apiUrl + `/projects/${projectId}/accept_invitation`, {
-      projectId,
-    });
-  }
 };

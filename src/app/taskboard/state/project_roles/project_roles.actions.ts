@@ -28,6 +28,16 @@ export const fetchAllProjectRolesOfProject_Failure = createAction(
     props<{ error: string; }>()
 );
 
+export const fetchAllProjectRolesOfCurrentUser_Success = createAction(
+    '[Project Roles] Fetch Project Roles of Current User (Success)',
+    props<{ projectRoles: ProjectRole[]; }>()
+);
+
+export const fetchAllProjectRolesOfCurrentUser_Failure = createAction(
+    '[Project Roles] Fetch Project Roles of Current User (Failure)',
+    props<{ error: string; }>()
+);
+
 // update
 export const updateProjectRole = createAction(
     '[Project Roles] Update Project Role Ids',
@@ -41,6 +51,22 @@ export const updateProjectRole_Success = createAction(
 
 export const updateProjectRole_Failure = createAction(
     '[Project Roles] Update Project Role (Failure)',
+    props<{ error: string; }>()
+);
+
+// accept invitation
+export const acceptProjectRoleInvitation = createAction(
+    '[Project Roles] Accept Project Role Invitation',
+    props<{ userId: string, projectId: string; }>()
+);
+
+export const acceptProjectRoleInvitation_Success = createAction(
+    '[Project Roles] Accept Project Role Invitation (Success)',
+    props<{ projectRole: ProjectRole; }>()
+);
+
+export const acceptProjectRoleInvitation_Failure = createAction(
+    '[Project Roles] Accept Project Role Invitation (Failure)',
     props<{ error: string; }>()
 );
 

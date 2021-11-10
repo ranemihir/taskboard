@@ -1,0 +1,12 @@
+<div class="row" *ngIf="projects$ | async as projects">
+    <h3 class="mb-4">Projects</h3>
+    <div class="col-md-6" *ngFor="let project of projects | keyvalue">
+        <div class="card shadow-sm" style="cursor: pointer;" [routerLink]="[ project.key ]"
+            style="border-radius: 12px;">
+            <div class="card-body ">
+                <h5 class="card-title">{{ project.value.name }}</h5>
+                <p class="card-text">{{ project.value.description }}</p>
+            </div>
+        </div>
+    </div>
+</div>

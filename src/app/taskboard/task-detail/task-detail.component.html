@@ -1,6 +1,5 @@
 <div class="row" *ngIf="data$ | async as data">
-    {{data | json}}
-    <div class="col-12 my-4">
+    <div class="col-12 mb-4">
         <h1>{{ data.task.title }}</h1>
     </div>
     <div class="row mt-4">
@@ -39,6 +38,8 @@
                 <span *ngIf="data.task.priority == 1" class="badge rounded-pill bg-danger shadow-sm">High</span>
             </h5>
         </div>
-        <div id="editorjs" class="mt-4"></div>
+        <div class="col-12 mt-4">
+            <p contenteditable="true">{{ data.task.description }}</p>
+        </div>
     </div>
 </div>

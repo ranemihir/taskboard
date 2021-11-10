@@ -46,6 +46,21 @@ export class ProjectRolesEffects {
         );
     });
 
+    acceptProjectRoleInvitation$ = createEffect(() => {
+        return this.$actions.pipe(
+            ofType(ProjectRolesActions.acceptProjectRoleInvitation),
+            mergeMap(action => this.projectRolesService.acceptProjectRoleInvitation(action.projectId).pipe(
+                map((projectRole: ProjectRole) => {
+                    return ProjectRolesActions.acceptProjectRoleInvitation_Success({ projectRole });
+                }),
+                catchError(error => {
+                    console.error(error);
+                    return of(ProjectRolesActions.acceptProjectRoleInvitation_Failure({ error }));
+                })
+            ))
+        );
+    });
+
     deleteProjectRole$ = createEffect(() => {
         return this.$actions.pipe(
             ofType(ProjectRolesActions.deleteProjectRole),

@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/shared/state';
-import { CurrentUser, Project } from 'src/app/shared/types';
+import { CurrentUser, Project, ProjectRole } from 'src/app/shared/types';
 import { environment } from 'src/environments/environment';
 import * as UserSelectors from '../../../auth/state/current_user/current_user.selectors';
 
@@ -24,8 +24,8 @@ export class ProjectsService {
     });
   }
 
-  fetchAllProjectsOfCurrentUser() {
-    return this.http.get<Project[]>(environment.apiUrl + '/projects/' + this.currentUserId);
+  fetchAllProjectsAndProjectRolesOfCurrentUser() {
+    return this.http.get<{ projects: Project[], projectRoles: ProjectRole[]; }>(environment.apiUrl + '/');
   }
 
   fetch(projectId: string) {

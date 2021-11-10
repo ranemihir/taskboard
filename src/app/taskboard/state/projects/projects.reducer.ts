@@ -10,6 +10,21 @@ const initialState: ProjectState = {
 
 export const projectsReducer = createReducer<ProjectState>(
     initialState as ProjectState,
+    on(ProjectActions.fetchAllProjectsOfCurrentUser_Success, (state, action) => {
+        return {
+            data: action.projects.reduce((acc, project: Project) => ({
+                ...acc,
+                [project._id]: { ...project }
+            }), {}),
+            error: null
+        };
+    }),
+    on(ProjectActions.fetchAllProjectsOfCurrentUser_Failure, (state, action) => {
+        return {
+            ...state,
+            error: action.error
+        };
+    }),
     on(ProjectActions.fetchProject_Success, (state, action) => {
         return {
             data: {

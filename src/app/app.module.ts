@@ -16,12 +16,14 @@ import { CustomRouterStateSerializer } from './router-state/router-state.seriali
 import { RouterStateModule } from './router-state/router-state.module';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { CustomHttpInterceptor } from './http-intercepter/http-intercepter.service';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    LandingPageComponent
+    LandingPageComponent,
+    DashboardComponent,
   ],
   imports: [
     BrowserModule,

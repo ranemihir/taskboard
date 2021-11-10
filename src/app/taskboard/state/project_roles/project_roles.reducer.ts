@@ -45,6 +45,24 @@ export const projectRolesReducer = createReducer<ProjectRoleState>(
             error: action.error
         };
     }),
+    on(ProjectRolesActions.fetchAllProjectRolesOfCurrentUser_Success, (state, action) => {
+        return {
+            data: {
+                ...state.data,
+                ...(action.projectRoles.reduce((acc, val: ProjectRole) => ({
+                    ...acc,
+                    [val._id]: { ...val }
+                }), {}))
+            },
+            error: null
+        };
+    }),
+    on(ProjectRolesActions.fetchAllProjectRolesOfCurrentUser_Failure, (state, action) => {
+        return {
+            ...state,
+            error: action.error
+        };
+    }),
     on(ProjectRolesActions.updateProjectRole_Success, (state, action) => {
         return {
             data: {

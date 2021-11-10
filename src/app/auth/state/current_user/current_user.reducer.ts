@@ -36,35 +36,5 @@ export const currentUserReducer = createReducer<CurrentUserState>(
 			data: null,
 			error: action.error
 		};
-	}),
-	on(CurrentUserActions.acceptProjectRoleInvitation_Success, (state, action) => {
-		if (state.data && state.data != null) {
-			if (state.data.projectRoles && state.data.projectRoles != null) {
-				return {
-					data: {
-						...state.data,
-						projectRoles: state.data.projectRoles.concat(action.projectRole)
-					},
-					error: null
-				};
-			}
-			return {
-				data: {
-					...state.data,
-					projectRoles: [action.projectRole]
-				},
-				error: null
-			};
-		}
-
-		return {
-			...state
-		};
-	}),
-	on(CurrentUserActions.acceptProjectRoleInvitation_Failure, (state, action) => {
-		return {
-			...state,
-			error: action.error
-		};
-	}),
+	})
 );
