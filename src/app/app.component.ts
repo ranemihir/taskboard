@@ -7,6 +7,7 @@ import * as ProjectsSelectors from './taskboard/state/projects/projects.selector
 import { Observable } from 'rxjs';
 import { CurrentUser, Project } from './shared/types';
 import { environment } from 'src/environments/environment';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -18,9 +19,14 @@ export class AppComponent {
   avatarUrl: string = environment.avatarUrl;
 
   constructor(
-    private store: Store<AppState>
+    private store: Store<AppState>,
+    private router: Router,
   ) {
     this.currentUser$ = this.store.select(UserSelectors.get);
+  }
+
+  showNavBar() {
+    return this.router.url === 'login' || this.router.url === 'signup';
   }
 
 
