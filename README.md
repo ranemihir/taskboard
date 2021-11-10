@@ -1,6 +1,8 @@
 # TaskBoard
 
-<img src="https://github.com/ranemihir/taskboard/blob/main/screenshots/logo.png" alt="Logo" width="100%">
+<p align="center">
+    <img src="https://github.com/ranemihir/taskboard/blob/main/screenshots/logo.png" alt="Logo">
+</p>
 
 # Screenshots
 
