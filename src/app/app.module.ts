@@ -17,6 +17,7 @@ import { RouterStateModule } from './router-state/router-state.module';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { CustomHttpInterceptor } from './http-intercepter/http-intercepter.service';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { NavbarComponent } from './navbar/navbar.component';
 
 
 @NgModule({
@@ -24,6 +25,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     AppComponent,
     LandingPageComponent,
     DashboardComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,

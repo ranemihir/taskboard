@@ -1,0 +1,16 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+    <div class="container-fluid px-3">
+        <span class='d-flex flex-row align-items-center'>
+            <i class="bi bi-kanban-fill text-primary d-inline-block" style="font-size: 1.8rem;"></i>
+            <a class="navbar-brand ms-2" href="/"><b>TaskBoard</b></a>
+        </span>
+        <div *ngIf=" currentUser$ | async as currentUser" class="d-flex flex-row align-items-center float-end">
+            <img [src]="avatarUrl + currentUser._id" class="img-thumbnail rounded-circle shadow-sm me-2"
+                [alt]="currentUser.firstName + ' thumbnail'" width='48' />
+            <div class="d-flex flex-column">
+                <div>{{currentUser.firstName + ' ' + currentUser.lastName}}</div>
+                <small class="text-muted text-decoration-none" style="cursor: 'pointer'">Sign Out</small>
+            </div>
+        </div>
+    </div>
+</nav>

@@ -1,10 +1,10 @@
 import { createFeatureSelector, createSelector } from "@ngrx/store";
 import { AppState, CurrentUserState, ProjectState, TaskState } from "src/app/shared/state";
-import { Project, Task } from "src/app/shared/types";
+import { Project, ProjectRole, Task } from "src/app/shared/types";
 import Status from "src/app/shared/types/status";
 import { selectRouteParams } from "../../../router-state/router-state.selectors";
 import { getAllProjectsOfCurrentUser } from "../projects/projects.selectors";
-
+import { getAllProjectRolesOfCurrentUser } from '../project_roles/project_roles.selectors';
 
 const tasksFeatureSelector = createFeatureSelector<AppState, TaskState>('tasks');
 
@@ -13,15 +13,14 @@ const getAllTasks = createSelector(
     (taskState: TaskState) => taskState.data || {}
 );
 
-const currentUserFeatureSelector = createFeatureSelector<AppState, CurrentUserState>('currentUser');
 
 export const getAllTasksAssignedToCurrentUserFromAllProjects = createSelector(
     getAllTasks,
-    currentUserFeatureSelector,
-    (tasks: { [key: string]: Omit<Task, '_id'>; }, currentUser: CurrentUserState) => ({
-        ...(Object.keys(tasks).filter((_id: string) => tasks[_id].assignedTo === currentUser.data._id).reduce((acc, _id: string) => ({
+    getAllProjectRolesOfCurrentUser,
+    (tasks: { [key: string]: Omit<Task, '_id'>; }, projectRoles: { [key: string]: Omit<ProjectRole, '_id'>; }) => ({
+        ...(Object.keys(tasks).filter((_id: string) => tasks[_id].assignedTo in projectRoles).reduce((acc, taskId: string) => ({
             ...acc,
-            [_id]: { ...tasks[_id] }
+            [taskId]: { ...tasks[taskId] }
         }), {}))
     })
 );

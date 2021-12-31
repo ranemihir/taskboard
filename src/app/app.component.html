@@ -1,19 +1,9 @@
-<nav *ngIf="showNavBar()" class="navbar navbar-light bg-white shadow-sm px-2">
-    <div class="container-fluid">
-        <a class="navbar-brand d-inline-flex align-items-center" routerLink=''>
-            <i class="bi bi-kanban-fill text-primary d-inline-block" style="font-size: 1.8rem;"></i>
-            <strong class="ms-2">TaskBoard</strong>
-        </a>
-        <div class="d-flex">
-            <span *ngIf="currentUser$ | async as currentUser; else get_started" class="d-flex align-items-center">
-                <img [src]="avatarUrl + currentUser._id" class="img-thumbnail rounded-circle shadow-sm" />
-            </span>
-            <ng-template #get_started>
-                <button class="btn btn-primary rounded-pill shadow-sm" routerLink="/signup">Get Started</button>
-            </ng-template>
-        </div>
+<div class="text-center" style="font-size: 16px;" *ngIf="loading">
+    <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Loading...</span>
     </div>
-</nav>
-<div class="container mt-4">
+</div>
+<app-navbar *ngIf="showNavBar()"></app-navbar>
+<div class="container mt-4" *ngIf="!loading">
     <router-outlet></router-outlet>
 </div>

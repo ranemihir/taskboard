@@ -7,7 +7,7 @@ import * as ProjectsSelectors from './taskboard/state/projects/projects.selector
 import { Observable } from 'rxjs';
 import { CurrentUser, Project } from './shared/types';
 import { environment } from 'src/environments/environment';
-import { Router } from '@angular/router';
+import { NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -17,6 +17,7 @@ import { Router } from '@angular/router';
 export class AppComponent {
   currentUser$: Observable<CurrentUser>;
   avatarUrl: string = environment.avatarUrl;
+  loading = false;
 
   constructor(
     private store: Store<AppState>,
@@ -26,7 +27,19 @@ export class AppComponent {
   }
 
   showNavBar() {
-    return this.router.url === 'login' || this.router.url === 'signup';
+    return this.router.url !== 'login' && this.router.url !== 'signup';
+  }
+
+  ngOnInit() {
+    this.router.events.subscribe((routerEvent) => {
+      if (routerEvent instanceof NavigationStart) {
+        this.loading = true;
+      }
+
+      if (routerEvent instanceof NavigationEnd || routerEvent instanceof NavigationCancel || routerEvent instanceof NavigationError) {
+        this.loading = false;
+      }
+    });
   }
 
 

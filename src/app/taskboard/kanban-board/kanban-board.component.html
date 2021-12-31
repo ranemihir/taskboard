@@ -49,12 +49,19 @@
                                     </span>
                                 </div>
                                 <div *ngIf="task.value.assignedTo in projectRoles">
-                                    <img [src]="avatarUrl + task.value.assignedTo"
-                                        class="img-thumbnail rounded-circle me-1 shadow-sm" />
-                                    <span class="align-middle"
-                                        *ngIf="projectRoles[task.value.assignedTo] as projectRole">
-                                        {{ projectRole.firstName + ' ' + projectRole.lastName }}
-                                    </span>
+                                    <div *ngIf="currentUser$ | async as currentUser">
+                                        <img [src]="avatarUrl + task.value.assignedTo"
+                                            class="img-thumbnail rounded-circle me-1 shadow-sm" />
+                                        <span class="align-middle"
+                                            *ngIf="projectRoles[task.value.assignedTo] as projectRole">
+                                            <span *ngIf="projectRole.userId == currentUser._id; else elseBlock">
+                                                {{currentUser.firstName + ' ' + currentUser.lastName}}
+                                            </span>
+                                            <ng-template #elseBlock>
+                                                {{ projectRole.firstName + ' ' + projectRole.lastName }}
+                                            </ng-template>
+                                        </span>
+                                    </div>
                                 </div>
                             </div>
                         </div>

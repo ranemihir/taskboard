@@ -29,7 +29,6 @@ export class ProjectsService {
   }
 
   fetch(projectId: string) {
-
     return this.http.get<Project>(environment.apiUrl + '/projects/' + projectId);
   }
 
