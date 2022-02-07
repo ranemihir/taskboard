@@ -1,8 +1,14 @@
 <div class="row" *ngIf="data$ | async as data">
-    <div class="col-12 mb-4">
+    <div class="col-12 my-4">
         <h1>{{ data.task.title }}</h1>
     </div>
     <div class="row mt-4">
+        <div class="col-1">
+            <h6 class="mb-3">Status</h6>
+            <h5 *ngIf="data.task.status == 0">To Do</h5>
+            <h5 *ngIf="data.task.status == 1">In Progress</h5>
+            <h5 *ngIf="data.task.status == 2">Done</h5>
+        </div>
         <div class="col-3">
             <h6 class="mb-3">Tags</h6>
             <div>
@@ -13,7 +19,7 @@
                 </h5>
             </div>
         </div>
-        <div class="col-3">
+        <div class="col-2">
             <h6 class="mb-3">Due Date</h6>
             <p>{{ data.task.dueDate | date }}</p>
         </div>
@@ -26,7 +32,7 @@
                 </span>
             </div>
         </div>
-        <div class="col-3">
+        <div class="col-1">
             <h6 class="mb-3">Prority</h6>
             <h5>
                 <span *ngIf="data.task.priority == 3" class="badge rounded-pill bg-success shadow-sm">Low</span>

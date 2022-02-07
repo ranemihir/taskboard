@@ -1,7 +1,6 @@
 import { createFeatureSelector, createSelector } from "@ngrx/store";
 import { AppState, CurrentUserState, ProjectState, TaskState } from "src/app/shared/state";
 import { Project, ProjectRole, Task } from "src/app/shared/types";
-import Status from "src/app/shared/types/status";
 import { selectRouteParams } from "../../../router-state/router-state.selectors";
 import { getAllProjectsOfCurrentUser } from "../projects/projects.selectors";
 import { getAllProjectRolesOfCurrentUser } from '../project_roles/project_roles.selectors';
@@ -31,19 +30,17 @@ export const getAllTasksOfProject = createSelector(
     getAllTasks,
     selectRouteParams,
     (projects: { [key: string]: Omit<Project, '_id'>; }, tasks: { [key: string]: Omit<Task, '_id'>; }, { projectId }) => {
-        const tasksFilteredByStatus = projects[projectId].statuses.map((status: Status): { [key: string]: { [key: string]: Omit<Task, '_id'>; }; } => {
-            return {
-                [status._id]: (Object.keys(tasks).filter((taskId: string) => tasks[taskId].statusId === status._id).reduce((acc, _id): { [key: string]: Omit<Task, '_id'>; } => ({
-                    ...acc,
-                    [_id]: { ...tasks[_id] }
-                }), {}))
-            };
-        });
-
-        return tasksFilteredByStatus.reduce((acc, val) => ({
+        return Object.keys(tasks).reduce((acc, taskId: string) => ({
             ...acc,
-            ...val
-        }), {});
+            [tasks[taskId].status]: {
+                ...acc[tasks[taskId].status],
+                [taskId]: tasks[taskId] 
+            }
+        }), {
+            0: {},
+            1: {},
+            2: {}
+        });
     }
 );
 
