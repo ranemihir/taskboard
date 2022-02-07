@@ -10,13 +10,6 @@ import { TaskDetailResolver } from './task-detail/task-detail.resolver';
 
 const routes: Routes = [
     {
-        path: '',
-        component: DashboardComponent,
-        resolve: {
-            projects: DashboardResolver
-        }
-    },
-    {
         path: ':projectId',
         component: KanbanBoardComponent,
         canActivate: [AuthGuard],
